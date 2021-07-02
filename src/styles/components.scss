@@ -1,0 +1,94 @@
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: row;
+  background: #e0e0e0;
+  height: 100vh;
+
+  .main-column {
+    display: flex;
+    flex-direction: column;
+    background: #1f3234;
+    max-width: 400px;
+    padding-bottom: 8px;
+    font-size: 1rem;
+
+    h2 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+
+    > div {
+      margin: 8px 8px 0 8px;
+      background: #102021;
+      border-radius: 5px;
+      padding: 20px;
+      @include color-content(white);
+    }
+
+    .main-logo {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .box-logo {
+        background: $brand-primary;
+        width: 35px;
+        height: 35px;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+    }
+
+    .main-categories {
+      flex: 1;
+    }
+  }
+
+  .list-column {
+    width: 100%;
+    max-width: 400px;
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      li {
+        display: flex;
+        flex-direction: row;
+
+        border-radius: 10px;
+        margin: 8px 8px 0 8px;
+
+        border: 4px solid #102021;
+        background: white;
+
+        .note-title-color {
+          width: 40px;
+          background: #00ff84;
+        }
+
+        .note-title-box {
+          margin-left: 50px;
+          padding: 8px;
+        }
+      }
+    }
+  }
+
+  .note-column {
+    background: white;
+    flex: 1;
+    margin: 8px 8px 8px 0;
+    border-radius:10px;
+    border: 4px solid #102021;
+  }
+
+}
+
+.selected {
+  background: red;
+  color: white;
+}

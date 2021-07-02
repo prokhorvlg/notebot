@@ -1,0 +1,8 @@
+// This file imports all into a single scss for use by the single page application.
+// This is done to avoid loading in the same scss multiple times, and to ensure the correct load order for variables, mixins, etc.
+
+// The individual styles are still stored alongside the components, for cleaner project organization.
+
+@import './variables.scss';
+@import './typography.scss';
+@import './components.scss';

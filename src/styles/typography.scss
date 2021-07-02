@@ -1,0 +1,41 @@
+// Load in all fonts used for project.
+// font-family: 'Rubik'
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500;700');
+
+// font-family: 'Rubik Mono One'
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap');
+
+// font-family: 'Alata'
+@import url('https://fonts.googleapis.com/css2?family=Alata');
+
+$font-big: 'Rubik Mono One', sans-serif;
+$font-heading: 'Rubik', sans-serif;
+$font-body: 'Alata', sans-serif;
+$font-icons: 'Alata', sans-serif;
+
+body {
+  font-size: 62.5%;
+}
+
+// Mixin used to set a base color for all content within this element.
+@mixin color-content($color) {
+  color: $color;
+  h1, h2, h3, h4, h5, h6, p, span {
+    color: $color;
+  }
+}
+
+// Set up base fonts for all elements.
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Rubik', sans-serif;
+  font-size: 2rem;
+  margin: 0;
+}
+
+body, p {
+  font-family: 'Alata', sans-serif;
+}
+
+p {
+  font-size: 1rem;
+}
