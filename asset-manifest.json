@@ -1,23 +1,25 @@
 {
   "files": {
-    "main.css": "/notebot/static/css/main.9d5b29c0.chunk.css",
-    "main.js": "/notebot/static/js/main.38e7189e.chunk.js",
-    "main.js.map": "/notebot/static/js/main.38e7189e.chunk.js.map",
-    "runtime-main.js": "/notebot/static/js/runtime-main.c02e22fe.js",
-    "runtime-main.js.map": "/notebot/static/js/runtime-main.c02e22fe.js.map",
-    "static/js/2.de9e4d30.chunk.js": "/notebot/static/js/2.de9e4d30.chunk.js",
-    "static/js/2.de9e4d30.chunk.js.map": "/notebot/static/js/2.de9e4d30.chunk.js.map",
-    "static/js/3.a9d03295.chunk.js": "/notebot/static/js/3.a9d03295.chunk.js",
-    "static/js/3.a9d03295.chunk.js.map": "/notebot/static/js/3.a9d03295.chunk.js.map",
+    "main.css": "/notebot/static/css/main.8de4310d.chunk.css",
+    "main.js": "/notebot/static/js/main.e3fb1a4a.chunk.js",
+    "main.js.map": "/notebot/static/js/main.e3fb1a4a.chunk.js.map",
+    "runtime-main.js": "/notebot/static/js/runtime-main.85942282.js",
+    "runtime-main.js.map": "/notebot/static/js/runtime-main.85942282.js.map",
+    "static/css/2.76e3afa8.chunk.css": "/notebot/static/css/2.76e3afa8.chunk.css",
+    "static/js/2.83462351.chunk.js": "/notebot/static/js/2.83462351.chunk.js",
+    "static/js/2.83462351.chunk.js.map": "/notebot/static/js/2.83462351.chunk.js.map",
+    "static/js/3.32b64f0c.chunk.js": "/notebot/static/js/3.32b64f0c.chunk.js",
+    "static/js/3.32b64f0c.chunk.js.map": "/notebot/static/js/3.32b64f0c.chunk.js.map",
     "index.html": "/notebot/index.html",
-    "static/css/main.9d5b29c0.chunk.css.map": "/notebot/static/css/main.9d5b29c0.chunk.css.map",
-    "static/js/2.de9e4d30.chunk.js.LICENSE.txt": "/notebot/static/js/2.de9e4d30.chunk.js.LICENSE.txt",
-    "static/media/logo.6ce24c58.svg": "/notebot/static/media/logo.6ce24c58.svg"
+    "static/css/2.76e3afa8.chunk.css.map": "/notebot/static/css/2.76e3afa8.chunk.css.map",
+    "static/css/main.8de4310d.chunk.css.map": "/notebot/static/css/main.8de4310d.chunk.css.map",
+    "static/js/2.83462351.chunk.js.LICENSE.txt": "/notebot/static/js/2.83462351.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.c02e22fe.js",
-    "static/js/2.de9e4d30.chunk.js",
-    "static/css/main.9d5b29c0.chunk.css",
-    "static/js/main.38e7189e.chunk.js"
+    "static/js/runtime-main.85942282.js",
+    "static/css/2.76e3afa8.chunk.css",
+    "static/js/2.83462351.chunk.js",
+    "static/css/main.8de4310d.chunk.css",
+    "static/js/main.e3fb1a4a.chunk.js"
   ]
 }
