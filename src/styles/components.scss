@@ -1,18 +1,18 @@
 body {
   margin: 0;
   overflow: hidden;
+  background: #0f1819;
 }
 
 .app-container {
   display: flex;
   flex-direction: row;
-  background: #e0e0e0;
   height: 100vh;
 
   .main-column {
     display: flex;
     flex-direction: column;
-    background: #1f3234;
+    width: 30%;
     max-width: 400px;
     padding-bottom: 8px;
     font-size: 1rem;
@@ -23,8 +23,8 @@ body {
     }
 
     > div {
-      margin: 8px 8px 0 8px;
-      background: #102021;
+      margin: 8px 8px 0 40px;
+      //background: #102021;
       border-radius: 5px;
       padding: 20px;
       @include color-content(white);
@@ -34,6 +34,8 @@ body {
       display: flex;
       flex-direction: row;
       align-items: center;
+
+      padding-top: 100px;
       .box-logo {
         background: $brand-primary;
         width: 35px;
@@ -44,7 +46,85 @@ body {
     }
 
     .main-categories {
+      display: flex;
+      flex-direction: column;
       flex: 1;
+
+      .main-categories-list {
+        flex: 1;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+
+        li {
+          display: block;
+          margin: 0 0 5px 0;
+          a {
+            display: block;
+            border-radius: 6px;
+            padding: 8px 0 8px 15px;
+            border: 2px solid;
+            transition: 0.1s ease-in-out;
+            text-decoration: none;
+
+            &:not(.selected) {
+              background-color: transparent !important;
+              &:not(:hover) {
+                border: 2px solid transparent !important;
+              }
+            }
+            &.selected {
+              color: black !important;
+              font-weight: 800;
+            }
+
+            &.category-all {
+              border: 2px solid transparent;
+              color: white;
+              &:hover {
+                border-color: white;
+              }
+              &.selected {
+                background: white;
+                color: black;
+              }
+            }
+          }
+
+        }
+      }
+      .main-categories-controls {
+        display: flex;
+        flex-direction: column;
+        border: 2px solid white;
+        border-radius: 6px;
+        padding: 20px 0 20px 30px;
+        a {
+          color: white;
+          display: block;
+          text-decoration: none;
+          padding: 5px 0 5px 0;
+          font-size: 0.9rem;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+      .main-categories-add {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 40px 0 40px 0;
+        a {
+          color: white;
+          text-decoration: none;
+          font-size: 0.9rem;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
     }
   }
 
@@ -87,8 +167,6 @@ body {
   }
 
 }
-
-.selected {
-  background: red;
-  color: white;
+.fa-link-icon {
+  margin-right: 8px;
 }

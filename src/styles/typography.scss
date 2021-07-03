@@ -2,16 +2,8 @@
 // font-family: 'Rubik'
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500;700');
 
-// font-family: 'Rubik Mono One'
-@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap');
-
-// font-family: 'Alata'
-@import url('https://fonts.googleapis.com/css2?family=Alata');
-
-$font-big: 'Rubik Mono One', sans-serif;
-$font-heading: 'Rubik', sans-serif;
-$font-body: 'Alata', sans-serif;
-$font-icons: 'Alata', sans-serif;
+$font-heading: 'Inter', sans-serif;
+$font-body: 'Inter', sans-serif;
 
 body {
   font-size: 62.5%;
@@ -27,13 +19,14 @@ body {
 
 // Set up base fonts for all elements.
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Rubik', sans-serif;
+  font-family: $font-heading;
   font-size: 2rem;
   margin: 0;
 }
 
 body, p {
-  font-family: 'Alata', sans-serif;
+  font-family: $font-heading;
+  font-weight: 600;
 }
 
 p {

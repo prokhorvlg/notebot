@@ -1,5 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 
+import { ColorPicker, useColor } from "react-color-palette";
+import "react-color-palette/lib/css/styles.css";
+import OutsideClickHandler from 'react-outside-click-handler';
+
 const Category = ({category, changeCategory, deleteCategory, selectCategory}) => {
 
   // Make sure that the input element is focused when the category is in edit mode.
@@ -9,6 +13,15 @@ const Category = ({category, changeCategory, deleteCategory, selectCategory}) =>
       categoryRef.current.focus();
     }
   }, [category.editMode]);
+
+  // Handle color changes for the Category.
+  const [color, setColor] = useColor("hex", category.color);
+  // On app load, set the color to match the app state.
+  // On color picker update, set app state to reflect color.
+  useEffect(() => {
+    console.log(color);
+    changeCategory(category.id, { color: color.hex });
+  }, [color]);
 
   // Handle any events that occur in edit mode.
   const handleKeyDown = (e) => {
@@ -36,6 +49,11 @@ const Category = ({category, changeCategory, deleteCategory, selectCategory}) =>
     selectCategory(category.id);
   }
 
+  // Handle the user clicking outside of the color picker, effectively ending the selection.
+  const handleOutsideColorClick = (e) => {
+    changeCategory(category.id, { editColorMode: false });
+  }
+
   // Append a selected class if this category is selected.
   let selectedClass;
   if (category.selected) {
@@ -46,7 +64,7 @@ const Category = ({category, changeCategory, deleteCategory, selectCategory}) =>
 
   if (category.editMode) {
     return (
-      <li>
+      <li className="category-item-linkMode">
         <input
           id={"category-" + category.id}
           ref={categoryRef}
@@ -60,15 +78,24 @@ const Category = ({category, changeCategory, deleteCategory, selectCategory}) =>
     );
   } else {
     return (
-      <li>
+      <li className="category-item-linkMode">
         <a
           id={"category-" + category.id}
           ref={categoryRef}
-          class={selectedClass}
+          className={selectedClass}
+          style={{ color: category.color, borderColor: category.color, backgroundColor: category.color }}
           href="#"
           onClick={(e) => handleClick(e)}>
             {category.name}
         </a>
+        {category.editColorMode > 0 &&
+          <OutsideClickHandler
+            onOutsideClick={handleOutsideColorClick}>
+            <div className="category-colorPicker">
+              <ColorPicker width={300} height={100} color={color} onChange={setColor} hideHSV hideRGB hideHEX dark />
+            </div>
+        </OutsideClickHandler>
+        }
       </li>
     );
   }
