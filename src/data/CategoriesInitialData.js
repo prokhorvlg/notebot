@@ -4,7 +4,6 @@ const CategoriesInitialData = [
       name: 'Personal',
       color: '#00ff84',
       editMode: false,
-      colorEditMode: false,
       selected: false
     },
     {
@@ -12,7 +11,6 @@ const CategoriesInitialData = [
       name: 'Work',
       color: '#ffb322',
       editMode: false,
-      colorEditMode: false,
       selected: false
     },
     {
@@ -20,7 +18,6 @@ const CategoriesInitialData = [
       name: 'Miscellaneous',
       color: '#16ecff',
       editMode: false,
-      colorEditMode: false,
       selected: false
     }
   ];

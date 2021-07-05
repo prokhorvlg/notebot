@@ -16,7 +16,7 @@ editNote
 
 */
 
-export class databaseCalls {
+export class DatabaseCalls {
 
   async loadUser(userKey) {
     firebase.firestore().collection("users").doc(userKey).get().then((doc) => {
@@ -65,4 +65,4 @@ export class databaseCalls {
   }
 }
 
-export default new databaseCalls();
+export default new DatabaseCalls();

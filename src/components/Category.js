@@ -4,7 +4,7 @@ import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
 import OutsideClickHandler from 'react-outside-click-handler';
 
-const Category = ({category, changeCategory, deleteCategory, selectCategory}) => {
+const Category = ({ category, changeCategory, deleteCategory, selectCategory, categorySetMode, setCategorySetMode, changeNote, selectedNote }) => {
 
   // Make sure that the input element is focused when the category is in edit mode.
   const categoryRef = useRef(null);
@@ -13,15 +13,6 @@ const Category = ({category, changeCategory, deleteCategory, selectCategory}) =>
       categoryRef.current.focus();
     }
   }, [category.editMode]);
-
-  // Handle color changes for the Category.
-  const [color, setColor] = useColor("hex", category.color);
-  // On app load, set the color to match the app state.
-  // On color picker update, set app state to reflect color.
-  useEffect(() => {
-    console.log(color);
-    changeCategory(category.id, { color: color.hex });
-  }, [color]);
 
   // Handle any events that occur in edit mode.
   const handleKeyDown = (e) => {
@@ -46,12 +37,17 @@ const Category = ({category, changeCategory, deleteCategory, selectCategory}) =>
 
   // Handle any events that occur in normal mode (as an anchor).
   const handleClick = (e) => {
-    selectCategory(category.id);
-  }
-
-  // Handle the user clicking outside of the color picker, effectively ending the selection.
-  const handleOutsideColorClick = (e) => {
-    changeCategory(category.id, { editColorMode: false });
+    if (!categorySetMode) {
+      // Normal category select mode, just select the targetted category.
+      selectCategory(category.id);
+    } else {
+      // If we are in set mode for a note,
+      // Change the selected note's category to this one.
+      changeNote(selectedNote, { category: category.id });
+      // Reset category set mode.
+      setCategorySetMode(false);
+      selectCategory(category.id);
+    }
   }
 
   // Append a selected class if this category is selected.
@@ -64,11 +60,12 @@ const Category = ({category, changeCategory, deleteCategory, selectCategory}) =>
 
   if (category.editMode) {
     return (
-      <li className="category-item-linkMode">
+      <li className="category-item edit-mode">
         <input
           id={"category-" + category.id}
           ref={categoryRef}
           placeholder="Enter a category title."
+          className="feature-input"
           onInput={(e) => handleEdit(e)}
           onKeyDown={(e) => handleKeyDown(e)}
           onBlur={(e) => handleExit(e)}
@@ -78,7 +75,7 @@ const Category = ({category, changeCategory, deleteCategory, selectCategory}) =>
     );
   } else {
     return (
-      <li className="category-item-linkMode">
+      <li className={"category-item link-mode " + ((categorySetMode === true) ? 'category-set-mode' : '')}>
         <a
           id={"category-" + category.id}
           ref={categoryRef}
@@ -88,14 +85,6 @@ const Category = ({category, changeCategory, deleteCategory, selectCategory}) =>
           onClick={(e) => handleClick(e)}>
             {category.name}
         </a>
-        {category.editColorMode > 0 &&
-          <OutsideClickHandler
-            onOutsideClick={handleOutsideColorClick}>
-            <div className="category-colorPicker">
-              <ColorPicker width={300} height={100} color={color} onChange={setColor} hideHSV hideRGB hideHEX dark />
-            </div>
-        </OutsideClickHandler>
-        }
       </li>
     );
   }

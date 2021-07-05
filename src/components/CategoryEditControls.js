@@ -1,17 +1,17 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faFill, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 // CategoryEditControls: contains a list of controls for editing the currently selected category.
-const CategoryEditControls = ({selectedCategory, selectedCategoryColor, changeCategory, deleteCategory}) => {
+const CategoryEditControls = ({selectedCategory, selectedCategoryColor, changeCategory, deleteCategory, editColorMode, setEditColorMode}) => {
 
   // Handles click of edit category title click.
   const editCategoryTitleClick = (e) => {
     e.preventDefault();
     // Set the target category into edit mode, unless it is the all category.
     if (selectedCategory !== -1) {
-      changeCategory(selectedCategory, { editMode: true, editColorMode: false });
+      changeCategory(selectedCategory, { editMode: true });
     }
   }
 
@@ -20,7 +20,13 @@ const CategoryEditControls = ({selectedCategory, selectedCategoryColor, changeCa
     e.preventDefault();
     // Set the target category into edit mode, unless it is the all category.
     if (selectedCategory !== -1) {
-      changeCategory(selectedCategory, { editMode: false, editColorMode: true });
+      changeCategory(selectedCategory, { editMode: false });
+      if (editColorMode === true) {
+        console.log("Set")
+        setEditColorMode(false);
+      } else {
+        setEditColorMode(true);
+      }
     }
   }
 
@@ -34,7 +40,7 @@ const CategoryEditControls = ({selectedCategory, selectedCategoryColor, changeCa
   }
 
   return (
-    <div style={{ borderColor: selectedCategoryColor }} className="main-categories-controls">
+    <div style={{ borderColor: selectedCategoryColor }} className={"main-categories-controls " + ((selectedCategory !== -1) ? 'showing' : 'not-showing')}>
       <a href="#" onClick={editCategoryTitleClick}>
         <FontAwesomeIcon icon={faEdit} color={selectedCategoryColor} className="fa-link-icon" fixedWidth  />
         Edit title

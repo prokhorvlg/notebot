@@ -1,7 +1,7 @@
 body {
   margin: 0;
   overflow: hidden;
-  background: #0f1819;
+  background: $brand-dark;
 }
 
 .app-container {
@@ -14,27 +14,21 @@ body {
     flex-direction: column;
     width: 30%;
     max-width: 400px;
-    padding-bottom: 8px;
     font-size: 1rem;
-
     h2 {
       font-size: 1.3rem;
       margin-bottom: 10px;
     }
-
     > div {
       margin: 8px 8px 0 40px;
-      //background: #102021;
       border-radius: 5px;
       padding: 20px;
       @include color-content(white);
     }
-
     .main-logo {
       display: flex;
       flex-direction: row;
       align-items: center;
-
       padding-top: 100px;
       .box-logo {
         background: $brand-primary;
@@ -49,13 +43,23 @@ body {
       display: flex;
       flex-direction: column;
       flex: 1;
-
       .main-categories-list {
         flex: 1;
         list-style: none;
         display: flex;
         flex-direction: column;
         padding: 0;
+
+        // Set category mode with dashed lines. Has to be very nested to overwrite other styles.
+        // I wish I didn't have to do this as it's super ugly, but it's the most efficient way
+        // I know of doing this while still having dynamically changing colors.
+        li.category-set-mode > a {
+          &:not(.selected) {
+            &:not(:hover), &:hover {
+              border: 2px dashed !important;
+            }
+          }
+        }
 
         li {
           display: block;
@@ -67,7 +71,6 @@ body {
             border: 2px solid;
             transition: 0.1s ease-in-out;
             text-decoration: none;
-
             &:not(.selected) {
               background-color: transparent !important;
               &:not(:hover) {
@@ -75,10 +78,9 @@ body {
               }
             }
             &.selected {
-              color: black !important;
+              color: $brand-dark !important;
               font-weight: 800;
             }
-
             &.category-all {
               border: 2px solid transparent;
               color: white;
@@ -87,7 +89,7 @@ body {
               }
               &.selected {
                 background: white;
-                color: black;
+                color: $brand-dark;
               }
             }
           }
@@ -115,15 +117,7 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 40px 0 40px 0;
-        a {
-          color: white;
-          text-decoration: none;
-          font-size: 0.9rem;
-          &:hover {
-            text-decoration: underline;
-          }
-        }
+        margin: 20px 0 30px 0;
       }
     }
   }
@@ -131,42 +125,201 @@ body {
   .list-column {
     width: 100%;
     max-width: 400px;
+    display: flex;
+    flex-direction: column;
+
+    .list-search-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 140px;
+      margin-bottom: 30px;
+      h2 {
+        color: white;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+    }
+
     ul {
       list-style: none;
+      flex: 1;
       margin: 0;
-      padding: 0;
-      li {
-        display: flex;
-        flex-direction: row;
+      padding: 0px;
+      border-radius: 10px;
+      display: block;
+      background: white;
 
-        border-radius: 10px;
-        margin: 8px 8px 0 8px;
-
-        border: 4px solid #102021;
-        background: white;
-
-        .note-title-color {
-          width: 40px;
-          background: #00ff84;
-        }
-
-        .note-title-box {
-          margin-left: 50px;
-          padding: 8px;
-        }
+      overflow-y: scroll;
+      &::-webkit-scrollbar {
+        display: none;
       }
+
+      li {
+        a {
+          color: $brand-dark;
+          text-decoration: none;
+          display: flex;
+          flex-direction: row;
+          border-radius: 8px;
+          margin: 6px 6px 0 6px;
+          border: 5px solid transparent;
+          transition: 0.1s ease-in-out;
+          .note-title-color {
+            width: 20px;
+            background: #00ff84;
+            border-radius: 5px;
+          }
+          .note-title-box {
+            margin-left: 5px;
+            padding: 15px 8px 18px 23px;
+            border: 3px solid transparent;
+            border-radius: 6px;
+            transition: 0.1s ease-in-out;
+            flex: 1;
+            h2 {
+              font-size: 1.5rem;
+              margin: 0;
+              padding: 0;
+            }
+            p {
+              margin: 5px 0 0 0;
+              font-size: 0.8rem;
+              font-weight: 700;
+            }
+          }
+          &:hover {
+            .note-title-box {
+              border-color: $brand-dark;
+            }
+          }
+        }
+        &.selected a {
+          border: 4px solid #102021;
+          background: #102021;
+          color: white;
+        }
+
+      }
+    }
+
+    .list-notes-add {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0 50px 0;
     }
   }
 
   .note-column {
-    background: white;
     flex: 1;
-    margin: 8px 8px 8px 0;
-    border-radius:10px;
-    border: 4px solid #102021;
-  }
+    margin-left: 10px;
+    margin-right: 50px;
 
+    display: flex;
+    flex-direction: column;
+
+    .note-title-bar {
+      height: 140px;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      margin-bottom: 30px;
+
+      .note-title-icon {
+        height: 40px;
+        width: 40px;
+        margin-left: 30px;
+        margin-right: 30px;
+        margin-bottom: 2px;
+        border-radius: 50%;
+      }
+
+      .note-title-container {
+        display: flex;
+        flex-direction: column;
+
+        h3, p {
+          color: white;
+        }
+        h3 {
+          font-size: 1.5rem;
+          margin: 0;
+        }
+        p {
+          margin: 5px 0 0 0;
+          font-size: 0.8rem;
+        }
+      }
+
+
+    }
+    .note-contents {
+      flex: 1;
+      background: white;
+      border-radius: 10px;
+      > .tox {
+        height: 100% !important;
+        border-radius: 10px;
+        .tox-sidebar-wrap {
+          margin: 50px;
+        }
+      }
+    }
+    .note-controls {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      margin: 20px 0 50px 0;
+    }
+
+  }
 }
+
 .fa-link-icon {
   margin-right: 8px;
+}
+.not-showing {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.2s, opacity 0.2s linear;
+}
+.showing {
+  visibility: visible;
+  transition: visibility 0.2s, opacity 0.2s linear;
+  opacity: 1;
+}
+
+// Styling for all link buttons that activate features of the app.
+a.feature-link {
+  display: block;
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 10px 30px 10px 30px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  transition: 0.1s ease-in-out;
+  user-select: none;
+  &:hover {
+    border: 2px solid white;
+  }
+  &:active {
+    background-color: white;
+    color: $brand-dark;
+    font-weight: 800;
+  }
+}
+input.feature-input {
+  border-radius: 10px;
+  padding: 15px 0 15px 20px;
+  background: transparent;
+  border: 3px solid white;
+  color: white;
+  font-family: $font-heading;
+  font-weight:600;
+  &:focus {
+    outline: 1px dotted white;
+  }
 }
