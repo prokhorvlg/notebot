@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, createRef, useRef } from 'react';
+import React, { useState } from 'react';
 
 // Addons
 // - Font Awesome for icons
@@ -8,8 +8,7 @@ import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 import TimeAgo from 'react-timeago'
 
 // Utilities
-import { generateId, generateColor, findObjectInArray, findPositionInArray } from "./utils/Utils";
-import DatabaseCalls from "./utils/DatabaseCalls";
+import { findObjectInArray } from "./utils/Utils";
 
 // Components
 import CategoryAll from './components/CategoryAll';
@@ -17,7 +16,6 @@ import CategoriesList from './components/CategoriesList';
 import CategoryColorPicker from './components/CategoryColorPicker';
 import CategoryEditControls from './components/CategoryEditControls';
 import NotesList from './components/NotesList';
-import Note from './components/Note';
 import NoteEditor from './components/NoteEditor';
 
 // Initial Data
@@ -25,34 +23,47 @@ import CategoriesInitialData from './data/CategoriesInitialData';
 import NotesInitialData from './data/NotesInitialData';
 
 // Functionality
-import useUser from  './functionality/UserFunctionality.js';
-import useCategories from  './functionality/CategoriesFunctionality.js';
-import useNotes from  './functionality/NotesFunctionality.js';
+import useCategories from  './functionality/CategoriesFunctionality';
+import useNotes from  './functionality/NotesFunctionality';
+import useStorage from "./functionality/StorageFunctionality";
 
 // MAIN APPLICATION
 const Main = () => {
 
   // * STATE
-  // ** USER: Custom hook for User-related functionality.
-  const [initUser] = useUser();
-  React.useEffect(() => {
-    // Load the user data or creates a new one if they do not exist on load.
-    initUser();
-  }, []);
+
+  // ** STORAGE: Custom hook that handles User and Cloud Storage related functionality.
+  const [
+    userId,
+    initUser,
+    saveCollectionToCloud,
+    deleteItemFromCloud,
+    getCollectionFromCloud
+  ] = useStorage();
+
+  // ** DELETE CATEGORY NOTES: Deletes all notes within a given category.
+  const deleteCategoryNotes = (categoryId) => {
+    notes.forEach((note) => {
+      if (note.category === categoryId) {
+        deleteNote(note.id);
+      }
+    });
+  }
 
   // ** CATEGORIES: Custom hook for Categories-related functionality.
   const [
     selectedCategory,
     setSelectedCategory,
     categories,
+    setCategories,
     selectedCategoryColor,
     setSelectedCategoryColor,
     addCategory,
     changeCategory,
     selectCategory,
-    deleteCategory
-  ] = useCategories(CategoriesInitialData);
-
+    deleteCategory,
+    addCategoryFromObject
+  ] = useCategories(deleteCategoryNotes, saveCollectionToCloud, deleteItemFromCloud);
   const [categorySetMode, setCategorySetMode] = useState(false);
 
   // ** CATEGORY COLOR PICKER
@@ -63,23 +74,51 @@ const Main = () => {
     selectedNote,
     setSelectedNote,
     notes,
+    setNotes,
     addNote,
     changeNote,
     selectNote,
     deleteNote
-  ] = useNotes(NotesInitialData, categories, selectedCategory);
+  ] = useNotes(categories, selectedCategory, saveCollectionToCloud, deleteItemFromCloud);
+
+  // ** LOAD APP DATA FROM CLOUD
+  React.useEffect(() => {
+    async function loadApp() {
+      console.log("totally only running once lol")
+      initUser() // Load the user data or creates a new one if they do not exist on load.
+        .then(([newUserId, userIsExisting]) => {
+          console.log(userIsExisting)
+          if (userIsExisting) {
+            // Load the user's categories into the state.
+            console.log("grabbing collection!");
+            getCollectionFromCloud(newUserId, "categories", setCategories);
+          } else {
+            // Load initial data.
+            setCategories(CategoriesInitialData);
+          }
+          return [newUserId, userIsExisting];
+        })
+        .then(([newUserId, userIsExisting]) => {
+          if (userIsExisting) {
+            // Load the user's notes into the state.
+            getCollectionFromCloud(newUserId, "notes", setNotes);
+          } else {
+            // Load initial data.
+            setNotes(NotesInitialData);
+          }
+        })
+    }
+    loadApp();
+  }, []);
 
   // ** SEARCH
   const [searchString, setSearchString] = useState("");
-
   const handleSearchInput = (e) => {
     setSearchString(e.target.value);
   }
-
   React.useEffect(() => {
-
     // Filter the selection down.
-    notes.map((note) => {
+    notes.forEach((note) => {
       // Make sure note is in selected category (or all are visible).
       const noteIsInSelectedCategory = (note.category === selectedCategory || selectedCategory === -1);
       const noteContainsSearchString = (note.title.toLowerCase().includes(searchString) || note.contents.toLowerCase().includes(searchString) || searchString === "");
@@ -89,8 +128,10 @@ const Main = () => {
         changeNote(note.id, { visible: false });
       }
     })
+  }, [userId, searchString, selectedCategory]);
 
-  }, [searchString, selectedCategory]);
+  // ** MOBILE VIEWS
+  const [activeScreen, setActiveScreen] = useState(0);
 
   // * RENDER
   return (
@@ -112,6 +153,7 @@ const Main = () => {
               changeCategory={changeCategory}
               deleteCategory={deleteCategory}
               selectCategory={selectCategory}
+              selectedCategory={selectedCategory}
               changeNote={changeNote}
               selectedNote={selectedNote}
               categorySetMode={categorySetMode}
@@ -190,13 +232,11 @@ const Main = () => {
           </div>
       </div>
         <div className="note-contents">
-
           <NoteEditor
             selectedNote={selectedNote}
             notes={notes}
             changeNote={changeNote}
             />
-
         </div>
         <div className="note-controls">
           <a href="#" className="feature-link" onClick={(e) => changeNote(selectedNote, { editMode: true })}>

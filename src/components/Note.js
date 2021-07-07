@@ -14,8 +14,8 @@ const Note = ({ note, changeNote, deleteNote, selectNote, selectedNote, categori
 
   // Update the "last modified" time to now any time the contents of the notes change.
   useEffect(() => {
-    if (selectedNote) {
-      changeNote(selectedNote, { modified: new Date().toLocaleString() });
+    if (selectedNote && selectedNote === note.id) {
+      changeNote(note.id, { modified: new Date().toLocaleString() });
     }
   }, [note.contents, note.title]);
 

@@ -1,10 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 
-import { ColorPicker, useColor } from "react-color-palette";
-import "react-color-palette/lib/css/styles.css";
-import OutsideClickHandler from 'react-outside-click-handler';
-
-const Category = ({ category, changeCategory, deleteCategory, selectCategory, categorySetMode, setCategorySetMode, changeNote, selectedNote }) => {
+const Category = ({ category, changeCategory, deleteCategory, selectCategory, selectedCategory, categorySetMode, setCategorySetMode, changeNote, selectedNote }) => {
 
   // Make sure that the input element is focused when the category is in edit mode.
   const categoryRef = useRef(null);
@@ -50,17 +46,9 @@ const Category = ({ category, changeCategory, deleteCategory, selectCategory, ca
     }
   }
 
-  // Append a selected class if this category is selected.
-  let selectedClass;
-  if (category.selected) {
-    selectedClass = " selected";
-  } else {
-    selectedClass = "";
-  }
-
   if (category.editMode) {
     return (
-      <li className="category-item edit-mode">
+      <li className={"category-item edit-mode" + ((selectedCategory === category.id) ? 'selected' : '')}>
         <input
           id={"category-" + category.id}
           ref={categoryRef}
@@ -79,7 +67,7 @@ const Category = ({ category, changeCategory, deleteCategory, selectCategory, ca
         <a
           id={"category-" + category.id}
           ref={categoryRef}
-          className={selectedClass}
+          className={(selectedCategory === category.id) ? 'selected' : ''}
           style={{ color: category.color, borderColor: category.color, backgroundColor: category.color }}
           href="#"
           onClick={(e) => handleClick(e)}>

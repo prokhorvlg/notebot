@@ -1,5 +1,5 @@
 import React from 'react';
-import { generateId, generateColor, findObjectInArray, findPositionInArray } from "../utils/Utils";
+import { findObjectInArray } from "../utils/Utils";
 // - Tiny MCE for WISYWIG
 import { Editor } from '@tinymce/tinymce-react';
 
@@ -30,6 +30,7 @@ const NoteEditor = ({ selectedNote, notes, changeNote }) => {
 
         onEditorChange={(newValue, editor) => {
           changeNote(selectedNote, { contents: newValue });
+          console.log(newValue);
         }}
       />
     );

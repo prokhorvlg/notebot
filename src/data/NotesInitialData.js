@@ -16,7 +16,7 @@ const NotesInitialData = [
       title: 'Area 51 vacation plans',
       category: 0,
       modified: new Date('June 26, 2021 12:15:30').toLocaleString(),
-      contents: 'Contents of a note.',
+      contents: '<p class="editor-font" style="font-family: Inter;">Contents of a note.</p>',
       editMode: false,
       visible: false
     },
@@ -25,7 +25,7 @@ const NotesInitialData = [
       title: 'Funniest joke ever',
       category: 0,
       modified: new Date('June 29, 2021 23:15:30').toLocaleString(),
-      contents: 'Contents of a note.',
+      contents: '<p class="editor-font" style="font-family: Inter;">Contents of a note.</p>',
       editMode: false,
       visible: false
     },
@@ -34,7 +34,7 @@ const NotesInitialData = [
       title: 'Lol tech specs',
       category: 1,
       modified: new Date('July 3, 2021 09:15:30').toLocaleString(),
-      contents: 'Contents of a note.',
+      contents: '<p class="editor-font" style="font-family: Inter;">Contents of a note.</p>',
       editMode: false,
       visible: false
     },
@@ -43,7 +43,7 @@ const NotesInitialData = [
       title: 'Cats on the moon',
       category: 2,
       modified: new Date('July 4, 2021 05:15:30').toLocaleString(),
-      contents: 'Contents of a note.',
+      contents: '<p class="editor-font" style="font-family: Inter;">Contents of a note.</p>',
       editMode: false,
       visible: false
     },

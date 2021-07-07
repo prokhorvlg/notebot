@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 // Utilities
-import { generateId, generateColor, findObjectInArray, findPositionInArray } from "../utils/Utils";
+import { generateId, findObjectInArray, findPositionInArray } from "../utils/Utils";
 
 // ** NOTES
-const useNotes = (initialNotes, categories, selectedCategory) => {
+const useNotes = (categories, selectedCategory, saveCollectionToCloud, deleteItemFromCloud) => {
   // Stores the currently selected note that is being edited in the main panel.
   const [selectedNote, setSelectedNote] = useState(null);
 
   // Stores the notes associated with the user.
-  const [notes, setNotes] = useState(initialNotes);
+  const [notes, setNotes] = useState([]);
 
   // Trigger the process to add a new note.
   const addNote = () => {
-    const noteId = createEmptyNote();
+    createEmptyNote();
   }
 
   // Create a new empty category (a bucket for notes).
@@ -64,12 +64,20 @@ const useNotes = (initialNotes, categories, selectedCategory) => {
 
     // Reset selected note to "all".
     setSelectedNote(null);
+
+    // Delete the category from the cloud.
+    deleteItemFromCloud(id, "notes");
   }
+
+  React.useEffect(() => {
+    saveCollectionToCloud(notes, "notes", changeNote);
+  }, [notes]);
 
   return [
       selectedNote,
       setSelectedNote,
       notes,
+      setNotes,
       addNote,
       changeNote,
       selectNote,
