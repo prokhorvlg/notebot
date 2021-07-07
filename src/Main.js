@@ -135,17 +135,17 @@ const Main = () => {
   // * RENDER
   return (
     <div className="app-container">
-      <div className="main-column">
+      <div className={"categories-list-column " + ((activeScreen === 0) ? 'selected' : '')}>
         <div className="main-logo">
           <div className="box-logo"></div>
           <h1>Notebot</h1>
         </div>
         <div className="main-categories">
-
           <ul className="main-categories-list">
             <CategoryAll
               selectCategory={selectCategory}
               selectedCategory={selectedCategory}
+              setActiveScreen={setActiveScreen}
               />
             <CategoriesList
               categories={categories}
@@ -157,9 +157,9 @@ const Main = () => {
               selectedNote={selectedNote}
               categorySetMode={categorySetMode}
               setCategorySetMode={setCategorySetMode}
+              setActiveScreen={setActiveScreen}
               />
           </ul>
-
           <CategoryColorPicker
             editColorMode={editColorMode}
             setEditColorMode={setEditColorMode}
@@ -187,8 +187,10 @@ const Main = () => {
 
         </div>
       </div>
-      <div className="list-column">
-        <div className="list-search-box"><h2>Search your notes</h2>
+      <div className={"notes-list-column " + ((activeScreen === 1) ? 'selected' : '')}>
+        <button onClick={() => { setActiveScreen(0); }}>Back to Categories</button>
+        <div className="list-search-box">
+          <h2>Search your notes</h2>
           <input
             className="feature-input"
             onInput={(e) => handleSearchInput(e)}
@@ -202,6 +204,7 @@ const Main = () => {
             selectNote={selectNote}
             selectedNote={selectedNote}
             categories={categories}
+            setActiveScreen={setActiveScreen}
             />
         </ul>
         <div className="list-notes-add">
@@ -211,9 +214,10 @@ const Main = () => {
           </a>
         </div>
       </div>
-      <div className="note-column">
+      <div className={"note-input-column " + ((activeScreen === 2) ? 'selected' : '')}>
         <div className="note-title-bar">
           <div className="note-title-icon" style={{ backgroundColor: (selectedNote !== null) ? findObjectInArray(findObjectInArray(selectedNote, notes).category, categories).color : "white" }}></div>
+          <button onClick={() => { setActiveScreen(1); }}>Back to Notes</button>
           <div className="note-title-container">
             <h3>{(selectedNote !== null) ? findObjectInArray(selectedNote, notes).title : "Select a note"}</h3>
             {(selectedNote !== null) ?
@@ -229,7 +233,7 @@ const Main = () => {
               <p>No note selected.</p>
             }
           </div>
-      </div>
+        </div>
         <div className="note-contents">
           <NoteEditor
             selectedNote={selectedNote}

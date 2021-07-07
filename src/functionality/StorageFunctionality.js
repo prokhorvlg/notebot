@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import firebase from "../utils/firebase";
+import { insertParamIntoURL } from "../utils/Utils";
 
 const useStorage = () => {
 
@@ -40,9 +41,10 @@ const useStorage = () => {
   // ** QUERY STRING
   // Store and retrieve the user id from query string, if the user refreshes the page.
   const saveQueryStringUser = (newUserId) => {
-    var notebotUserParams = new URLSearchParams(window.location.search);
+    insertParamIntoURL("user", newUserId);
+    /*var notebotUserParams = new URLSearchParams(window.location.search);
     notebotUserParams.set("user", newUserId.toString());
-    window.history.replaceState(null, null, window.location.toString() + "?" + notebotUserParams.toString());
+    window.history.replaceState(null, null, window.location + "?" + notebotUserParams.toString() + window.location.hash);*/
   }
   const getQueryStringUser = () => {
     var notebotUserParams = new URLSearchParams(window.location.search);

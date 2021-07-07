@@ -3,7 +3,7 @@ import React from 'react';
 // Components
 import Note from './Note';
 
-const NotesList = ({ notes, changeNote, deleteNote, selectNote, selectedNote, categories }) => {
+const NotesList = ({ notes, changeNote, deleteNote, selectNote, selectedNote, categories, setActiveScreen }) => {
 
   return (
     [].concat(notes)
@@ -16,6 +16,7 @@ const NotesList = ({ notes, changeNote, deleteNote, selectNote, selectedNote, ca
           selectNote={selectNote}
           selectedNote={selectedNote}
           categories={categories}
+          setActiveScreen={setActiveScreen}
         />)
   );
 

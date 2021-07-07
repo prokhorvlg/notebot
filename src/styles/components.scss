@@ -9,12 +9,21 @@ body {
   flex-direction: row;
   height: 100vh;
 
-  .main-column {
+  .categories-list-column {
     display: flex;
     flex-direction: column;
     width: 30%;
     max-width: 400px;
     font-size: 1rem;
+    @media (max-width: $breakpoint-med) {
+      display: none;
+      width: 100%;
+      max-width: none;
+      &.selected {
+        display: flex;
+      }
+    }
+
     h2 {
       font-size: 1.3rem;
       margin-bottom: 10px;
@@ -64,13 +73,17 @@ body {
         li {
           display: block;
           margin: 0 0 5px 0;
-          a {
+          button {
             display: block;
             border-radius: 6px;
             padding: 8px 0 8px 15px;
+            text-align: left;
             border: 2px solid;
             transition: 0.1s ease-in-out;
             text-decoration: none;
+            width: 100%;
+            cursor: pointer;
+            font-size: 1rem;
             &:not(.selected) {
               background-color: transparent !important;
               &:not(:hover) {
@@ -122,11 +135,19 @@ body {
     }
   }
 
-  .list-column {
+  .notes-list-column {
     width: 100%;
     max-width: 400px;
     display: flex;
     flex-direction: column;
+    @media (max-width: $breakpoint-med) {
+      display: none;
+      width: 100%;
+      max-width: none;
+      &.selected {
+        display: flex;
+      }
+    }
 
     .list-search-box {
       display: flex;
@@ -212,13 +233,18 @@ body {
     }
   }
 
-  .note-column {
+  .note-input-column {
     flex: 1;
     margin-left: 10px;
     margin-right: 50px;
-
     display: flex;
     flex-direction: column;
+    @media (max-width: $breakpoint-med) {
+      display: none;
+      &.selected {
+        display: block;
+      }
+    }
 
     .note-title-bar {
       height: 140px;
@@ -292,7 +318,7 @@ body {
 }
 
 // Styling for all link buttons that activate features of the app.
-a.feature-link {
+a.feature-link, button.feature-link {
   display: block;
   color: white;
   text-decoration: none;

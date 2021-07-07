@@ -1,31 +1,23 @@
 import React from 'react';
 
 // CategoryAll: contains the button for the "all" category, which is not a true category.
-const CategoryAll = ({selectCategory, selectedCategory}) => {
-
-  // Append a selected class to all if all is selected.
-  let selectedClassAll;
-  if (selectedCategory === -1) {
-    selectedClassAll = " selected";
-  } else {
-    selectedClassAll = "";
-  }
+const CategoryAll = ({ selectCategory, selectedCategory, setActiveScreen }) => {
 
   // Handles the click of the "all" category which displays all notes.
   const allCategoryClick = (e) => {
     e.preventDefault();
     selectCategory(-1);
+    setActiveScreen(1);
   }
 
   return (
     <li>
-      <a
+      <button
         id="category-all"
-        href="#"
-        className={"category-all " + selectedClassAll}
+        className={"category-all " + ((selectedCategory === -1) ? 'selected' : '')}
         onClick={allCategoryClick}>
           All Notes
-      </a>
+      </button>
     </li>
   );
 

@@ -3,7 +3,7 @@ import React from 'react';
 // Components
 import Category from './Category';
 
-const CategoriesList = ({ categories, changeCategory, deleteCategory, selectCategory, selectedCategory, changeNote, selectedNote, categorySetMode, setCategorySetMode }) => {
+const CategoriesList = ({ categories, changeCategory, deleteCategory, selectCategory, selectedCategory, changeNote, selectedNote, categorySetMode, setCategorySetMode, setActiveScreen }) => {
 
   if (categories) {
     return (
@@ -18,6 +18,7 @@ const CategoriesList = ({ categories, changeCategory, deleteCategory, selectCate
           setCategorySetMode={setCategorySetMode}
           changeNote={changeNote}
           selectedNote={selectedNote}
+          setActiveScreen={setActiveScreen}
         />))
       );
     } else {

@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import TimeAgo from 'react-timeago'
 import { findObjectInArray } from "../utils/Utils";
 
-const Note = ({ note, changeNote, deleteNote, selectNote, selectedNote, categories }) => {
+const Note = ({ note, changeNote, deleteNote, selectNote, selectedNote, categories, setActiveScreen }) => {
 
   // Make sure that the input element is focused when the note is in edit mode.
   const noteRef = useRef(null);
@@ -44,6 +44,7 @@ const Note = ({ note, changeNote, deleteNote, selectNote, selectedNote, categori
   // Handle any events that occur in normal mode (as an anchor).
   const handleClick = (e) => {
     selectNote(note.id);
+    setActiveScreen(2);
   }
 
   if (note.editMode) {

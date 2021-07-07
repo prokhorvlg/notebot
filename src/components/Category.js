@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 
-const Category = ({ category, changeCategory, deleteCategory, selectCategory, selectedCategory, categorySetMode, setCategorySetMode, changeNote, selectedNote }) => {
+const Category = ({ category, changeCategory, deleteCategory, selectCategory, selectedCategory, categorySetMode, setCategorySetMode, changeNote, selectedNote, setActiveScreen }) => {
 
   // Make sure that the input element is focused when the category is in edit mode.
   const categoryRef = useRef(null);
@@ -36,6 +36,7 @@ const Category = ({ category, changeCategory, deleteCategory, selectCategory, se
     if (!categorySetMode) {
       // Normal category select mode, just select the targetted category.
       selectCategory(category.id);
+      setActiveScreen(1);
     } else {
       // If we are in set mode for a note,
       // Change the selected note's category to this one.
@@ -43,6 +44,7 @@ const Category = ({ category, changeCategory, deleteCategory, selectCategory, se
       // Reset category set mode.
       setCategorySetMode(false);
       selectCategory(category.id);
+      setActiveScreen(1);
     }
   }
 
@@ -64,15 +66,14 @@ const Category = ({ category, changeCategory, deleteCategory, selectCategory, se
   } else {
     return (
       <li className={"category-item link-mode " + ((categorySetMode === true) ? 'category-set-mode' : '')}>
-        <a
+        <button
           id={"category-" + category.id}
           ref={categoryRef}
           className={(selectedCategory === category.id) ? 'selected' : ''}
           style={{ color: category.color, borderColor: category.color, backgroundColor: category.color }}
-          href="#"
           onClick={(e) => handleClick(e)}>
             {category.name}
-        </a>
+        </button>
       </li>
     );
   }
