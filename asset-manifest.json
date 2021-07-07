@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/notebot/static/css/main.5737f8d5.chunk.css",
-    "main.js": "/notebot/static/js/main.511caf53.chunk.js",
-    "main.js.map": "/notebot/static/js/main.511caf53.chunk.js.map",
+    "main.js": "/notebot/static/js/main.e0f9e421.chunk.js",
+    "main.js.map": "/notebot/static/js/main.e0f9e421.chunk.js.map",
     "runtime-main.js": "/notebot/static/js/runtime-main.0736b2f9.js",
     "runtime-main.js.map": "/notebot/static/js/runtime-main.0736b2f9.js.map",
     "static/css/2.03c2aaf5.chunk.css": "/notebot/static/css/2.03c2aaf5.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.03c2aaf5.chunk.css",
     "static/js/2.1e2c5e2d.chunk.js",
     "static/css/main.5737f8d5.chunk.css",
-    "static/js/main.511caf53.chunk.js"
+    "static/js/main.e0f9e421.chunk.js"
   ]
 }
