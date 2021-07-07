@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/notebot/static/css/main.5737f8d5.chunk.css",
-    "main.js": "/notebot/static/js/main.e0f9e421.chunk.js",
-    "main.js.map": "/notebot/static/js/main.e0f9e421.chunk.js.map",
+    "main.css": "/notebot/static/css/main.04a4ddaa.chunk.css",
+    "main.js": "/notebot/static/js/main.88a37c75.chunk.js",
+    "main.js.map": "/notebot/static/js/main.88a37c75.chunk.js.map",
     "runtime-main.js": "/notebot/static/js/runtime-main.0736b2f9.js",
     "runtime-main.js.map": "/notebot/static/js/runtime-main.0736b2f9.js.map",
     "static/css/2.03c2aaf5.chunk.css": "/notebot/static/css/2.03c2aaf5.chunk.css",
@@ -12,14 +12,14 @@
     "static/js/3.52674b92.chunk.js.map": "/notebot/static/js/3.52674b92.chunk.js.map",
     "index.html": "/notebot/index.html",
     "static/css/2.03c2aaf5.chunk.css.map": "/notebot/static/css/2.03c2aaf5.chunk.css.map",
-    "static/css/main.5737f8d5.chunk.css.map": "/notebot/static/css/main.5737f8d5.chunk.css.map",
+    "static/css/main.04a4ddaa.chunk.css.map": "/notebot/static/css/main.04a4ddaa.chunk.css.map",
     "static/js/2.1e2c5e2d.chunk.js.LICENSE.txt": "/notebot/static/js/2.1e2c5e2d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.0736b2f9.js",
     "static/css/2.03c2aaf5.chunk.css",
     "static/js/2.1e2c5e2d.chunk.js",
-    "static/css/main.5737f8d5.chunk.css",
-    "static/js/main.e0f9e421.chunk.js"
+    "static/css/main.04a4ddaa.chunk.css",
+    "static/js/main.88a37c75.chunk.js"
   ]
 }
