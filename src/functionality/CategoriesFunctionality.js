@@ -37,12 +37,6 @@ const useCategories = (deleteCategoryNotes, saveCollectionToCloud, deleteItemFro
     setCategories(categories  => [...categories, emptyCategory]);
   }
 
-  const addCategoryFromObject = (category) => {
-    const newId = generateId(categories);
-    const newColor = generateColor();
-    setCategories(categories  => [...categories, category]);
-  }
-
   // Change category to the details provided in the input object.
   // Expect input object to look like { key: newValue, ... }
   const changeCategory = (id, newProperties) => {
@@ -89,11 +83,11 @@ const useCategories = (deleteCategoryNotes, saveCollectionToCloud, deleteItemFro
     if (categories.length) {
       saveCollectionToCloud(categories, "categories", changeCategory);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categories]);
 
   return [
       selectedCategory,
-      setSelectedCategory,
       categories,
       setCategories,
       selectedCategoryColor,
@@ -101,8 +95,7 @@ const useCategories = (deleteCategoryNotes, saveCollectionToCloud, deleteItemFro
       addCategory,
       changeCategory,
       selectCategory,
-      deleteCategory,
-      addCategoryFromObject
+      deleteCategory
     ];
 }
 

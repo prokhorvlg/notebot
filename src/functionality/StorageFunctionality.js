@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import firebase from "../utils/firebase";
 
 const useStorage = () => {
@@ -42,7 +42,7 @@ const useStorage = () => {
   const saveQueryStringUser = (newUserId) => {
     var notebotUserParams = new URLSearchParams(window.location.search);
     notebotUserParams.set("user", newUserId.toString());
-    window.history.replaceState(null, null, notebotUserParams);
+    window.history.replaceState(null, null, window.location.toString() + "?" + notebotUserParams.toString());
   }
   const getQueryStringUser = () => {
     var notebotUserParams = new URLSearchParams(window.location.search);

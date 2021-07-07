@@ -53,7 +53,6 @@ const Main = () => {
   // ** CATEGORIES: Custom hook for Categories-related functionality.
   const [
     selectedCategory,
-    setSelectedCategory,
     categories,
     setCategories,
     selectedCategoryColor,
@@ -61,8 +60,7 @@ const Main = () => {
     addCategory,
     changeCategory,
     selectCategory,
-    deleteCategory,
-    addCategoryFromObject
+    deleteCategory
   ] = useCategories(deleteCategoryNotes, saveCollectionToCloud, deleteItemFromCloud);
   const [categorySetMode, setCategorySetMode] = useState(false);
 
@@ -72,7 +70,6 @@ const Main = () => {
   // ** NOTES: Custom hook for Notes-related functionality.
   const [
     selectedNote,
-    setSelectedNote,
     notes,
     setNotes,
     addNote,
@@ -109,6 +106,7 @@ const Main = () => {
         })
     }
     loadApp();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ** SEARCH
@@ -128,6 +126,7 @@ const Main = () => {
         changeNote(note.id, { visible: false });
       }
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, searchString, selectedCategory]);
 
   // ** MOBILE VIEWS

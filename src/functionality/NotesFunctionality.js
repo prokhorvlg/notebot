@@ -71,11 +71,11 @@ const useNotes = (categories, selectedCategory, saveCollectionToCloud, deleteIte
 
   React.useEffect(() => {
     saveCollectionToCloud(notes, "notes", changeNote);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notes]);
 
   return [
       selectedNote,
-      setSelectedNote,
       notes,
       setNotes,
       addNote,

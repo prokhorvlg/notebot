@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import TimeAgo from 'react-timeago'
-import { generateId, generateColor, findObjectInArray, findPositionInArray } from "../utils/Utils";
+import { findObjectInArray } from "../utils/Utils";
 
 const Note = ({ note, changeNote, deleteNote, selectNote, selectedNote, categories }) => {
 
@@ -17,6 +17,7 @@ const Note = ({ note, changeNote, deleteNote, selectNote, selectedNote, categori
     if (selectedNote && selectedNote === note.id) {
       changeNote(note.id, { modified: new Date().toLocaleString() });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [note.contents, note.title]);
 
   // Handle any events that occur in edit mode.

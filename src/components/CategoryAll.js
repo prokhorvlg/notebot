@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 
 // CategoryAll: contains the button for the "all" category, which is not a true category.
 const CategoryAll = ({selectCategory, selectedCategory}) => {
