@@ -59,13 +59,14 @@ const Note = ({ note, changeNote, deleteNote, selectNote, selectedNote, categori
           onKeyDown={(e) => handleKeyDown(e)}
           onBlur={(e) => handleExit(e)}
           value={note.title}
+          style={{ borderColor: note.color }}
           />
       </li>
     );
   } else if (note.visible) {
     return (
       <li className={"note-title link-mode " + ((selectedNote === note.id) ? 'selected' : '')}>
-        <a href="#" onClick={(e) => handleClick(e)}>
+        <button onClick={(e) => handleClick(e)}>
           <div className="note-title-color" style={{ backgroundColor: findObjectInArray(note.category, categories).color }}></div>
           <div className="note-title-box">
             <h2>{note.title}</h2>
@@ -80,7 +81,7 @@ const Note = ({ note, changeNote, deleteNote, selectNote, selectedNote, categori
                 />
             </p>
           </div>
-        </a>
+        </button>
       </li>
     );
   } else {

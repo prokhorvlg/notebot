@@ -80,7 +80,7 @@ const useCategories = (deleteCategoryNotes, saveCollectionToCloud, deleteItemFro
   }
 
   React.useEffect(() => {
-    if (categories.length) {
+    if (categories && categories.length) {
       saveCollectionToCloud(categories, "categories", changeCategory);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -88,6 +88,7 @@ const useCategories = (deleteCategoryNotes, saveCollectionToCloud, deleteItemFro
 
   return [
       selectedCategory,
+      setSelectedCategory,
       categories,
       setCategories,
       selectedCategoryColor,

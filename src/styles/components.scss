@@ -1,13 +1,55 @@
+html, body, #root {
+  height: 100%;
+}
+
 body {
   margin: 0;
   overflow: hidden;
   background: $brand-dark;
 }
 
+.loading-screen {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $brand-dark;
+  transition: 0.3s ease;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  pointer-events: none;
+  user-select: none;
+  &.hideLoadingScreen {
+    opacity: 0;
+  }
+  .main-logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .box-logo img {
+      width: 60px;
+      height: 60px;
+    }
+    h1 {
+      text-align: center;
+      color: white;
+      margin-top: 5px;
+      font-size: 1rem;
+    }
+  }
+}
+
 .app-container {
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  height: 100%;
+  max-height: 100%;
 
   .categories-list-column {
     display: flex;
@@ -19,11 +61,11 @@ body {
       display: none;
       width: 100%;
       max-width: none;
+      max-height: inherit;
       &.selected {
         display: flex;
       }
     }
-
     h2 {
       font-size: 1.3rem;
       margin-bottom: 10px;
@@ -33,18 +75,31 @@ body {
       border-radius: 5px;
       padding: 20px;
       @include color-content(white);
+      @media (max-width: $breakpoint-med) {
+        margin: 0;
+      }
     }
     .main-logo {
       display: flex;
       flex-direction: row;
       align-items: center;
       padding-top: 100px;
+      @media (max-width: $breakpoint-med) {
+        padding-top: 40px;
+        padding-bottom: 0;
+        height: 90px;
+        justify-content: center;
+      }
       .box-logo {
-        background: $brand-primary;
+        //background: $brand-primary;
         width: 35px;
         height: 35px;
         border-radius: 5px;
         margin-right: 10px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
       }
     }
 
@@ -52,17 +107,26 @@ body {
       display: flex;
       flex-direction: column;
       flex: 1;
+      box-sizing: border-box;
+      @media (max-width: $breakpoint-med) {
+        max-height: calc(100% - 90px);
+        padding-bottom: 0;
+      }
+
       .main-categories-list {
         flex: 1;
         list-style: none;
         display: flex;
         flex-direction: column;
         padding: 0;
+        @media (max-width: $breakpoint-med) {
+          overflow-y: scroll;
+        }
 
         // Set category mode with dashed lines. Has to be very nested to overwrite other styles.
         // I wish I didn't have to do this as it's super ugly, but it's the most efficient way
         // I know of doing this while still having dynamically changing colors.
-        li.category-set-mode > a {
+        li.category-set-mode > button.category-button {
           &:not(.selected) {
             &:not(:hover), &:hover {
               border: 2px dashed !important;
@@ -71,9 +135,26 @@ body {
         }
 
         li {
-          display: block;
+          display: flex;
           margin: 0 0 5px 0;
-          button {
+
+          @media (max-width: $breakpoint-med) {
+            flex-direction: row;
+          }
+          button.mobile-category-open {
+            display: none;
+            margin-left: 5px;
+            padding: 5px 20px 5px 20px;
+            border: 0px solid white;
+            background: none;
+            border-radius: 6px;
+            color: white;
+            @media (max-width: $breakpoint-med) {
+              display: block;
+            }
+          }
+
+          button.category-button {
             display: block;
             border-radius: 6px;
             padding: 8px 0 8px 15px;
@@ -84,6 +165,12 @@ body {
             width: 100%;
             cursor: pointer;
             font-size: 1rem;
+            white-space: nowrap;
+            overflow-x: scroll;
+            flex: 1;
+            &::-webkit-scrollbar {
+              display: none;
+            }
             &:not(.selected) {
               background-color: transparent !important;
               &:not(:hover) {
@@ -106,6 +193,10 @@ body {
               }
             }
           }
+          input {
+            width: 100%;
+            padding: 8px 0 8px 15px;
+          }
 
         }
       }
@@ -115,8 +206,12 @@ body {
         border: 2px solid white;
         border-radius: 6px;
         padding: 20px 0 20px 30px;
-        a {
+        button {
           color: white;
+          background: none;
+          border: none;
+          text-align: left;
+          cursor: pointer;
           display: block;
           text-decoration: none;
           padding: 5px 0 5px 0;
@@ -125,12 +220,47 @@ body {
             text-decoration: underline;
           }
         }
+        @media (max-width: $breakpoint-med) {
+          flex-direction: row;
+          border: none;
+          margin: 0 auto;
+          justify-content: space-between;
+          padding: 10px 20px 20px 20px;
+          width: 150px;
+          max-width: 100%;
+          button {
+            font-size: 1.2rem;
+            svg {
+              margin: 0;
+            }
+            span {
+              display: none;
+            }
+          }
+        }
       }
       .main-categories-add {
         display: flex;
         justify-content: center;
         align-items: center;
         margin: 20px 0 30px 0;
+        @media (max-width: $breakpoint-med) {
+          margin: 0 20px 20px 20px;
+          justify-content: space-around;
+          button {
+            padding: 10px;
+            font-size: 1.2rem;
+            border: 3px solid white;
+            width: 100%;
+            max-width: 200px;
+            svg {
+              margin: 0;
+            }
+            span {
+              display: none;
+            }
+          }
+        }
       }
     }
   }
@@ -151,15 +281,45 @@ body {
 
     .list-search-box {
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
+      flex-direction: row;
       height: 140px;
       margin-bottom: 30px;
-      h2 {
-        color: white;
-        font-size: 1rem;
-        font-weight: 600;
-        margin-bottom: 8px;
+      @media (max-width: $breakpoint-med) {
+        height: auto;
+        margin: 20px 20px 0 20px;
+      }
+      .list-search-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        width: 100%;
+        @media (max-width: $breakpoint-med) {
+          margin-left: 20px;
+          width: auto;
+          flex: 1;
+        }
+        h2 {
+          color: white;
+          font-size: 1rem;
+          font-weight: 600;
+          margin-bottom: 8px;
+        }
+        .list-search-input-container {
+          position: relative;
+          display: flex;
+          input {
+            width: 100%;
+          }
+          .list-search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 1rem;
+            pointer-events: none;
+          }
+        }
       }
     }
 
@@ -171,26 +331,37 @@ body {
       border-radius: 10px;
       display: block;
       background: white;
-
       overflow-y: scroll;
+      overflow-x: hidden;
+      @media (max-width: $breakpoint-med) {
+        margin: 20px;
+      }
       &::-webkit-scrollbar {
         display: none;
       }
 
       li {
-        a {
+        padding: 6px 6px 0 6px;
+        display: flex;
+        button {
           color: $brand-dark;
           text-decoration: none;
           display: flex;
           flex-direction: row;
           border-radius: 8px;
-          margin: 6px 6px 0 6px;
           border: 5px solid transparent;
           transition: 0.1s ease-in-out;
+          background: none;
+          height: 100px;
+          cursor: pointer;
+          padding: 0;
+          width: 100%;
+          box-sizing: border-box;
           .note-title-color {
             width: 20px;
             background: #00ff84;
             border-radius: 5px;
+            height: 100%;
           }
           .note-title-box {
             margin-left: 5px;
@@ -199,6 +370,13 @@ body {
             border-radius: 6px;
             transition: 0.1s ease-in-out;
             flex: 1;
+            white-space: nowrap;
+            overflow-y: scroll;
+            text-align: left;
+            &::-webkit-scrollbar {
+              display: none;
+            }
+
             h2 {
               font-size: 1.5rem;
               margin: 0;
@@ -210,16 +388,28 @@ body {
               font-weight: 700;
             }
           }
-          &:hover {
-            .note-title-box {
-              border-color: $brand-dark;
+          @media (min-width: $breakpoint-med) {
+            &:hover {
+              .note-title-box {
+                border-color: $brand-dark;
+              }
             }
           }
         }
-        &.selected a {
-          border: 4px solid #102021;
-          background: #102021;
-          color: white;
+        @media (min-width: $breakpoint-med) {
+          &.selected button {
+            border: 4px solid $brand-dark;
+            background: $brand-dark;
+            color: white;
+          }
+        }
+        input {
+          width: 100%;
+          border-width: 4px;
+          border-color: $brand-dark;
+          color: $brand-dark;
+          font-weight: 800;
+          font-size: 1.2rem;
         }
 
       }
@@ -230,6 +420,25 @@ body {
       justify-content: center;
       align-items: center;
       margin: 20px 0 50px 0;
+      @media (max-width: $breakpoint-med) {
+        margin: 0 0px 20px 0px;
+        button {
+          padding: 10px;
+          font-size: 1.2rem;
+          border: 3px solid white;
+          width: 100%;
+          margin-left: 20px;
+          margin-right: 20px;
+          max-width: 200px;
+          svg {
+            margin: 0;
+          }
+          span {
+            display: none;
+          }
+        }
+
+      }
     }
   }
 
@@ -241,55 +450,85 @@ body {
     flex-direction: column;
     @media (max-width: $breakpoint-med) {
       display: none;
+      width: 100%;
+      margin: 0;
       &.selected {
-        display: block;
+        display: flex;
       }
     }
-
     .note-title-bar {
-      height: 140px;
       display: flex;
       flex-direction: row;
-      align-items: flex-end;
+      height: 140px;
       margin-bottom: 30px;
-
-      .note-title-icon {
-        height: 40px;
-        width: 40px;
-        margin-left: 30px;
-        margin-right: 30px;
-        margin-bottom: 2px;
-        border-radius: 50%;
+      @media (max-width: $breakpoint-med) {
+        height: auto;
+        margin: 20px 20px 0 20px;
+        min-height: 80px;
       }
-
-      .note-title-container {
+      .note-title-bar-container {
         display: flex;
-        flex-direction: column;
-
-        h3, p {
-          color: white;
+        flex-direction: row;
+        align-items: flex-end;
+        @media (max-width: $breakpoint-med) {
+          align-items: center;
         }
-        h3 {
-          font-size: 1.5rem;
-          margin: 0;
+        .note-title-icon {
+          height: 40px;
+          width: 40px;
+          margin-left: 30px;
+          margin-right: 30px;
+          margin-bottom: 2px;
+          border-radius: 50%;
+          @media (max-width: $breakpoint-med) {
+            display: none;
+          }
         }
-        p {
-          margin: 5px 0 0 0;
-          font-size: 0.8rem;
+        .note-title-text {
+          display: flex;
+          flex-direction: column;
+          @media (max-width: $breakpoint-med) {
+            margin-left: 20px;
+          }
+          h3, p {
+            color: white;
+          }
+          h3 {
+            font-size: 1.5rem;
+            margin: 0;
+          }
+          p {
+            margin: 5px 0 0 0;
+            font-size: 0.8rem;
+          }
         }
       }
-
-
     }
     .note-contents {
       flex: 1;
       background: white;
       border-radius: 10px;
+      max-width: 100%;
+
+    	display: flex;
+    	flex-direction: column;
+
+      @media (max-width: $breakpoint-med) {
+        margin: 20px;
+      }
       > .tox {
-        height: 100% !important;
+        //height: 100% !important;
         border-radius: 10px;
+        border: none;
+        flex: 1;
         .tox-sidebar-wrap {
           margin: 50px;
+          @media (max-width: $breakpoint-med) {
+            margin: 0px;
+          }
+        }
+        .tox-statusbar {
+          display: none;
         }
       }
     }
@@ -298,6 +537,21 @@ body {
       flex-direction: row;
       justify-content: flex-end;
       margin: 20px 0 50px 0;
+      @media (max-width: $breakpoint-med) {
+        margin: 0 auto 20px auto;
+        justify-content: space-around;
+        max-width: 150px;
+        button {
+          padding: 10px;
+          font-size: 1.2rem;
+          svg {
+            margin: 0;
+          }
+          span {
+            display: none;
+          }
+        }
+      }
     }
 
   }
@@ -310,6 +564,7 @@ body {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0.2s, opacity 0.2s linear;
+  height: 0;
 }
 .showing {
   visibility: visible;
@@ -321,6 +576,7 @@ body {
 a.feature-link, button.feature-link {
   display: block;
   color: white;
+  background: none;
   text-decoration: none;
   font-size: 0.9rem;
   padding: 10px 30px 10px 30px;
@@ -328,6 +584,7 @@ a.feature-link, button.feature-link {
   border-radius: 6px;
   transition: 0.1s ease-in-out;
   user-select: none;
+  cursor: pointer;
   &:hover {
     border: 2px solid white;
   }
@@ -347,5 +604,25 @@ input.feature-input {
   font-weight:600;
   &:focus {
     outline: 1px dotted white;
+  }
+}
+button.feature-return {
+  border: 3px solid white;
+  border-radius: 6px;
+  background: none;
+  color: white;
+  height: auto;
+  width: 50px;
+  padding: 8px;
+  display: none;
+  font-size: 1.2rem;
+  @media (max-width: $breakpoint-med) {
+    display: block;
+  }
+}
+
+@media (max-width: $breakpoint-med) {
+  .mobile-hidden {
+    display: none;
   }
 }

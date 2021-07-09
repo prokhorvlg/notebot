@@ -84,16 +84,39 @@ const useStorage = () => {
       userSession.collection(collectionName).doc(itemId.toString()).delete();
     }
   }
-  const getCollectionFromCloud = async (newUserId, collectionName, setCollection) => {
+  const getCollectionFromCloud = async (newUserId, collectionName) => {
     if (newUserId) {
-      let newCollection = [];
       const userSession = firebase.firestore().collection("users").doc(newUserId);
-      userSession.collection(collectionName).get().then((items) => {
+      return userSession.collection(collectionName).get().then((items) => {
+        let newCollection = [];
         items.docs.forEach((item) => {
           newCollection = [...newCollection, item.data()];
         });
-      }).then(() => {
-        setCollection(newCollection);
+        return newCollection;
+      });
+    }
+  }
+
+  // ** APP STATE
+  const saveStatesToCloud = (states) => {
+    if (userId) {
+      const userSession = firebase.firestore().collection("users").doc(userId);
+      states.forEach((state) => {
+        userSession.update({
+            [state.key]: state.value
+        });
+      });
+    }
+  }
+  const getStatesFromCloud = async (newUserId, states) => {
+    if (newUserId) {
+      const userSession = firebase.firestore().collection("users").doc(newUserId);
+      return await userSession.get().then((doc) => {
+        let newStates = [];
+        states.forEach((state) => {
+          newStates = [...newStates, doc.data()[state]];
+        });
+        return newStates;
       });
     }
   }
@@ -103,7 +126,9 @@ const useStorage = () => {
     initUser,
     saveCollectionToCloud,
     deleteItemFromCloud,
-    getCollectionFromCloud
+    getCollectionFromCloud,
+    saveStatesToCloud,
+    getStatesFromCloud
   ];
 }
 

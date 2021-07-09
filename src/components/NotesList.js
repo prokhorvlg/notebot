@@ -5,6 +5,7 @@ import Note from './Note';
 
 const NotesList = ({ notes, changeNote, deleteNote, selectNote, selectedNote, categories, setActiveScreen }) => {
 
+  console.log(notes)
   return (
     [].concat(notes)
       .sort((a, b) => { return new Date(b.modified) - new Date(a.modified) })

@@ -9,7 +9,7 @@ const NotesInitialData = [
 <p class="editor-font" style="font-family: Inter;">The demo is not intended for serious use. <strong>Your changes will not persist.</strong></p>
 <p class="editor-font" style="font-family: Inter;">Created with love by <span style="text-decoration: underline;">@prokhorvlg (Valentin Sigalov)</span>!</p>`,
       editMode: false,
-      visible: false
+      visible: true
     },
     {
       id: 1,
@@ -18,7 +18,7 @@ const NotesInitialData = [
       modified: new Date('June 26, 2021 12:15:30').toLocaleString(),
       contents: '<p class="editor-font" style="font-family: Inter;">Contents of a note.</p>',
       editMode: false,
-      visible: false
+      visible: true
     },
     {
       id: 2,
@@ -27,7 +27,7 @@ const NotesInitialData = [
       modified: new Date('June 29, 2021 23:15:30').toLocaleString(),
       contents: '<p class="editor-font" style="font-family: Inter;">Contents of a note.</p>',
       editMode: false,
-      visible: false
+      visible: true
     },
     {
       id: 3,
@@ -36,7 +36,7 @@ const NotesInitialData = [
       modified: new Date('July 3, 2021 09:15:30').toLocaleString(),
       contents: '<p class="editor-font" style="font-family: Inter;">Contents of a note.</p>',
       editMode: false,
-      visible: false
+      visible: true
     },
     {
       id: 4,
@@ -45,7 +45,7 @@ const NotesInitialData = [
       modified: new Date('July 4, 2021 05:15:30').toLocaleString(),
       contents: '<p class="editor-font" style="font-family: Inter;">Contents of a note.</p>',
       editMode: false,
-      visible: false
+      visible: true
     },
   ];
 

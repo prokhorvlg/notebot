@@ -41,18 +41,18 @@ const CategoryEditControls = ({selectedCategory, selectedCategoryColor, changeCa
 
   return (
     <div style={{ borderColor: selectedCategoryColor }} className={"main-categories-controls " + ((selectedCategory !== -1) ? 'showing' : 'not-showing')}>
-      <a href="#" onClick={editCategoryTitleClick}>
+      <button onClick={editCategoryTitleClick}>
         <FontAwesomeIcon icon={faEdit} color={selectedCategoryColor} className="fa-link-icon" fixedWidth  />
-        Edit title
-      </a>
-      <a href="#" onClick={editCategoryColorClick}>
+        <span>Edit title</span>
+      </button>
+      <button onClick={editCategoryColorClick}>
         <FontAwesomeIcon icon={faFill} color={selectedCategoryColor} className="fa-link-icon" fixedWidth  />
-        Edit color
-      </a>
-      <a href="#" onClick={deleteCategoryClick}>
+        <span>Edit color</span>
+      </button>
+      <button onClick={deleteCategoryClick}>
         <FontAwesomeIcon icon={faTrashAlt} color={selectedCategoryColor} className="fa-link-icon" fixedWidth  />
-        Delete category
-      </a>
+        <span>Delete category</span>
+      </button>
     </div>
   );
 

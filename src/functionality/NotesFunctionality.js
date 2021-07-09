@@ -76,6 +76,7 @@ const useNotes = (categories, selectedCategory, saveCollectionToCloud, deleteIte
 
   return [
       selectedNote,
+      setSelectedNote,
       notes,
       setNotes,
       addNote,
