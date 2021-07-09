@@ -9,7 +9,24 @@ export const generateId = (arrayOfObjects) => {
 }
 // Generates a random hex code from a list.
 export const generateColor = () => {
-  const colors = ["#91aaff", "#ff9e9e", "#ff80c5", "#7afbff", "#8aff9c"];
+  const colors = [
+    "#ff4141",
+    "#ff6f30",
+    "#ffa030",
+    "#ffcc30",
+    "#fffd30",
+    "#ccff30",
+    "#83ff30",
+    "#30ff3f",
+    "#30ff88",
+    "#30ffd1",
+    "#30eeff",
+    "#30afff",
+    "#6990ff",
+    "#ab68ff",
+    "#c936ff",
+    "#f836ff",
+    "#ff36bf"];
   return colors[Math.floor(Math.random()*colors.length)];
 }
 // Finds the object with the given id within the array.

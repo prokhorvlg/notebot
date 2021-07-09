@@ -1,22 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
+
+import { HexColorPicker } from "react-colorful";
+import { useDebouncedCallback } from 'use-debounce';
 import OutsideClickHandler from 'react-outside-click-handler';
 
 const CategoryColorPicker = ({editColorMode, setEditColorMode, selectedCategory, selectedCategoryColor, setSelectedCategoryColor, changeCategory}) => {
 
   // Handle color changes for the Category.
   // On app load, set the color to match the app state.
-  const [color, setColor] = useColor("hex", selectedCategoryColor);
+  const [value, setValue] = useState(selectedCategoryColor);
 
   // On color picker update, set app state to reflect color.
+  const debounced = useDebouncedCallback((value) => {
+    if (selectedCategory !== -1) {
+      setValue(value);
+      changeCategory(selectedCategory, { color: value });
+    }
+  }, 200);
+
+  // Make sure the color pickers default value is udpated whenever the category color changes.
   useEffect(() => {
     if (selectedCategory !== -1) {
-      changeCategory(selectedCategory, { color: color.hex });
-      //setSelectedCategoryColor(color.hex);
+      setValue(selectedCategoryColor);
     }
-  }, [color]);
+  }, [selectedCategoryColor]);
 
   // Handle the user clicking outside of the color picker, effectively ending the selection.
   const handleOutsideColorClick = (e) => {
@@ -27,7 +37,7 @@ const CategoryColorPicker = ({editColorMode, setEditColorMode, selectedCategory,
     <OutsideClickHandler
       onOutsideClick={handleOutsideColorClick}>
         <div className={"category-colorPicker " + ((editColorMode === true) ? 'showing' : 'not-showing')}>
-          <ColorPicker width={250} height={100} color={color} onChange={setColor} hideHSV hideRGB hideHEX dark />
+          <HexColorPicker color={value} onChange={(e) => debounced(e)} />
         </div>
     </OutsideClickHandler>
   );

@@ -17,7 +17,7 @@ const useCategories = (deleteCategoryNotes, saveCollectionToCloud, deleteItemFro
     if (selectedCategory !== -1) {
       setSelectedCategoryColor(findObjectInArray(selectedCategory, categories).color);
     }
-  }, [selectedCategory, categories]);
+  }, [selectedCategory, ...categories.map(category => category.color)]);
 
   // Trigger the process to add a new category.
   const addCategory = () => {

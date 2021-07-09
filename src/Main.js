@@ -124,7 +124,6 @@ const Main = () => {
             (newSelectedCategory || newSelectedCategory === 0) ? setSelectedCategory(newSelectedCategory) : setSelectedCategory(-1);
             (newSelectedNote || newSelectedCategory === 0) ? setSelectedNote(newSelectedNote) : setSelectedNote(null);
             (newActiveScreen) ? setActiveScreen(newActiveScreen) : setActiveScreen(0);
-            console.log(newSearchString, newSelectedCategory, newSelectedNote, newActiveScreen);
           } else {
             setCategories(CategoriesInitialData);
             setNotes(NotesInitialData);
@@ -178,7 +177,7 @@ const Main = () => {
       </div>
       { appFinishedLoading &&
         <>
-          <div className={"categories-list-column " + ((activeScreen === 0) ? 'selected' : '')}>
+          <div className={"categories-list-column " + ((activeScreen === 0) ? 'selected showing-mobile' : 'not-showing-mobile')}>
             <div className="main-logo">
               <div className="box-logo"><img src={notebotLogo} alt="notebotLogo" /></div>
               <h1>Notebot</h1>
@@ -227,7 +226,7 @@ const Main = () => {
               </div>
             </div>
           </div>
-          <div className={"notes-list-column " + ((activeScreen === 1) ? 'selected' : '')}>
+          <div className={"notes-list-column " + ((activeScreen === 1) ? 'selected showing-mobile' : 'not-showing-mobile')}>
             <div className="list-search-box">
               <button className="feature-return" onClick={() => { setActiveScreen(0); }} style={{ borderColor: categoryColor, color: categoryColor }}>
                 <FontAwesomeIcon icon={faArrowLeft} />
@@ -264,7 +263,7 @@ const Main = () => {
               </button>
             </div>
           </div>
-          <div className={"note-input-column " + ((activeScreen === 2) ? 'selected' : '')}>
+          <div className={"note-input-column " + ((activeScreen === 2) ? 'selected showing-mobile' : 'not-showing-mobile')}>
             <div className="note-title-bar">
               <button className="feature-return" onClick={() => { setActiveScreen(1); }} style={{ borderColor: noteColor, color: noteColor }}>
                 <FontAwesomeIcon icon={faArrowLeft} />

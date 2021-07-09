@@ -57,8 +57,8 @@ body {
     width: 30%;
     max-width: 400px;
     font-size: 1rem;
+    max-height: 100%;
     @media (max-width: $breakpoint-med) {
-      display: none;
       width: 100%;
       max-width: none;
       max-height: inherit;
@@ -108,20 +108,18 @@ body {
       flex-direction: column;
       flex: 1;
       box-sizing: border-box;
+      max-height: calc(100% - 177px);
       @media (max-width: $breakpoint-med) {
         max-height: calc(100% - 90px);
         padding-bottom: 0;
       }
-
       .main-categories-list {
         flex: 1;
         list-style: none;
         display: flex;
         flex-direction: column;
         padding: 0;
-        @media (max-width: $breakpoint-med) {
-          overflow-y: scroll;
-        }
+        overflow-y: auto;
 
         // Set category mode with dashed lines. Has to be very nested to overwrite other styles.
         // I wish I didn't have to do this as it's super ugly, but it's the most efficient way
@@ -200,6 +198,13 @@ body {
 
         }
       }
+      .category-colorPicker {
+        margin-bottom: 20px;
+        .react-colorful {
+          width: 100%;
+          height: 120px;
+        }
+      }
       .main-categories-controls {
         display: flex;
         flex-direction: column;
@@ -271,7 +276,6 @@ body {
     display: flex;
     flex-direction: column;
     @media (max-width: $breakpoint-med) {
-      display: none;
       width: 100%;
       max-width: none;
       &.selected {
@@ -449,7 +453,6 @@ body {
     display: flex;
     flex-direction: column;
     @media (max-width: $breakpoint-med) {
-      display: none;
       width: 100%;
       margin: 0;
       &.selected {
@@ -564,12 +567,38 @@ body {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0.2s, opacity 0.2s linear;
-  height: 0;
+  @media (max-width: $breakpoint-med) {
+    display: none;
+  }
 }
 .showing {
   visibility: visible;
   transition: visibility 0.2s, opacity 0.2s linear;
   opacity: 1;
+  @media (max-width: $breakpoint-med) {
+    display: flex;
+  }
+}
+
+@media (max-width: $breakpoint-med) {
+  .categories-list-column, .notes-list-column, .note-input-column {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    min-height: -webkit-fill-available;
+  }
+  .showing-mobile {
+    visibility: visible;
+    transition: visibility 0.2s, opacity 0.2s linear;
+    opacity: 1;
+  }
+  .not-showing-mobile {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.2s, opacity 0.2s linear;
+    user-select: none;
+    pointer-events: none;
+  }
 }
 
 // Styling for all link buttons that activate features of the app.

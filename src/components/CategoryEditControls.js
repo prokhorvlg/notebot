@@ -8,7 +8,6 @@ const CategoryEditControls = ({selectedCategory, selectedCategoryColor, changeCa
 
   // Handles click of edit category title click.
   const editCategoryTitleClick = (e) => {
-    e.preventDefault();
     // Set the target category into edit mode, unless it is the all category.
     if (selectedCategory !== -1) {
       changeCategory(selectedCategory, { editMode: true });
@@ -17,12 +16,10 @@ const CategoryEditControls = ({selectedCategory, selectedCategoryColor, changeCa
 
   // Handles click of edit color category.
   const editCategoryColorClick = (e) => {
-    e.preventDefault();
     // Set the target category into edit mode, unless it is the all category.
     if (selectedCategory !== -1) {
       changeCategory(selectedCategory, { editMode: false });
       if (editColorMode === true) {
-        console.log("Set")
         setEditColorMode(false);
       } else {
         setEditColorMode(true);
@@ -32,7 +29,6 @@ const CategoryEditControls = ({selectedCategory, selectedCategoryColor, changeCa
 
   // Handles click of delete category.
   const deleteCategoryClick = (e) => {
-    e.preventDefault();
     // Delete the currently selected category, unless it is the all category.
     if (selectedCategory !== -1) {
       deleteCategory(selectedCategory);
