@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/notebot/static/css/main.9e7295dc.chunk.css",
-    "main.js": "/notebot/static/js/main.1d286b65.chunk.js",
-    "main.js.map": "/notebot/static/js/main.1d286b65.chunk.js.map",
-    "runtime-main.js": "/notebot/static/js/runtime-main.00418de0.js",
-    "runtime-main.js.map": "/notebot/static/js/runtime-main.00418de0.js.map",
+    "main.css": "/notebot/static/css/main.b39be0b3.chunk.css",
+    "main.js": "/notebot/static/js/main.428f795c.chunk.js",
+    "main.js.map": "/notebot/static/js/main.428f795c.chunk.js.map",
+    "runtime-main.js": "/notebot/static/js/runtime-main.4e315125.js",
+    "runtime-main.js.map": "/notebot/static/js/runtime-main.4e315125.js.map",
     "static/css/2.03c2aaf5.chunk.css": "/notebot/static/css/2.03c2aaf5.chunk.css",
-    "static/js/2.a1ed26d8.chunk.js": "/notebot/static/js/2.a1ed26d8.chunk.js",
-    "static/js/2.a1ed26d8.chunk.js.map": "/notebot/static/js/2.a1ed26d8.chunk.js.map",
-    "static/js/3.d8211019.chunk.js": "/notebot/static/js/3.d8211019.chunk.js",
-    "static/js/3.d8211019.chunk.js.map": "/notebot/static/js/3.d8211019.chunk.js.map",
+    "static/js/2.de80d404.chunk.js": "/notebot/static/js/2.de80d404.chunk.js",
+    "static/js/2.de80d404.chunk.js.map": "/notebot/static/js/2.de80d404.chunk.js.map",
+    "static/js/3.5ee9ef13.chunk.js": "/notebot/static/js/3.5ee9ef13.chunk.js",
+    "static/js/3.5ee9ef13.chunk.js.map": "/notebot/static/js/3.5ee9ef13.chunk.js.map",
     "index.html": "/notebot/index.html",
     "static/css/2.03c2aaf5.chunk.css.map": "/notebot/static/css/2.03c2aaf5.chunk.css.map",
-    "static/css/main.9e7295dc.chunk.css.map": "/notebot/static/css/main.9e7295dc.chunk.css.map",
-    "static/js/2.a1ed26d8.chunk.js.LICENSE.txt": "/notebot/static/js/2.a1ed26d8.chunk.js.LICENSE.txt",
+    "static/css/main.b39be0b3.chunk.css.map": "/notebot/static/css/main.b39be0b3.chunk.css.map",
+    "static/js/2.de80d404.chunk.js.LICENSE.txt": "/notebot/static/js/2.de80d404.chunk.js.LICENSE.txt",
     "static/media/notebot-logo-nobg.491baec0.png": "/notebot/static/media/notebot-logo-nobg.491baec0.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.00418de0.js",
+    "static/js/runtime-main.4e315125.js",
     "static/css/2.03c2aaf5.chunk.css",
-    "static/js/2.a1ed26d8.chunk.js",
-    "static/css/main.9e7295dc.chunk.css",
-    "static/js/main.1d286b65.chunk.js"
+    "static/js/2.de80d404.chunk.js",
+    "static/css/main.b39be0b3.chunk.css",
+    "static/js/main.428f795c.chunk.js"
   ]
 }
