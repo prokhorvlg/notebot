@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 // Utilities
 import { generateId, generateColor, findObjectInArray, findPositionInArray } from "../utils/Utils";
+import { useDebouncedCallback } from 'use-debounce';
 
 // ** CATEGORIES
 const useCategories = (deleteCategoryNotes, saveCollectionToCloud, deleteItemFromCloud) => {
@@ -14,10 +15,10 @@ const useCategories = (deleteCategoryNotes, saveCollectionToCloud, deleteItemFro
   // Set the theme color of the category editor box and its contents.
   const [selectedCategoryColor, setSelectedCategoryColor] = useState("#ffffff");
   React.useEffect(() => {
-    if (selectedCategory !== -1) {
+    if (categories && categories.length && selectedCategory !== -1) {
       setSelectedCategoryColor(findObjectInArray(selectedCategory, categories).color);
     }
-  }, [selectedCategory, ...categories.map(category => category.color)]);
+  }, [selectedCategory, categories]);
 
   // Trigger the process to add a new category.
   const addCategory = () => {
@@ -79,9 +80,12 @@ const useCategories = (deleteCategoryNotes, saveCollectionToCloud, deleteItemFro
     }
   }
 
+  const saveCategoriesDebounce = useDebouncedCallback(([collection, collectionName]) => {
+    saveCollectionToCloud(collection, collectionName);
+  }, 2000);
   React.useEffect(() => {
     if (categories && categories.length) {
-      saveCollectionToCloud(categories, "categories", changeCategory);
+      saveCategoriesDebounce([categories, "categories"]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categories]);

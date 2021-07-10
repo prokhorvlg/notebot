@@ -31,7 +31,8 @@ export const generateColor = () => {
 }
 // Finds the object with the given id within the array.
 export const findObjectInArray = (id, arrayOfObjects) => {
-  return arrayOfObjects.find(object => object.id === id);
+  var result = arrayOfObjects.find(object => object.id === id);
+  return (result) ? result : {};
 }
 // Finds the position of the object with the given id within the array.
 export const findPositionInArray = (id, arrayOfObjects) => {

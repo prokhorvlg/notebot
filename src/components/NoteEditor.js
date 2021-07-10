@@ -30,7 +30,6 @@ const NoteEditor = ({ selectedNote, notes, changeNote }) => {
 
         onEditorChange={(newValue, editor) => {
           changeNote(selectedNote, { contents: newValue });
-          console.log(newValue);
         }}
       />
     );

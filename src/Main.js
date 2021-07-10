@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusSquare, faArrowLeft, faTrashAlt, faExchangeAlt, faSearch, faEdit } from '@fortawesome/free-solid-svg-icons'
 import TimeAgo from 'react-timeago'
+import { useDebouncedCallback } from 'use-debounce';
 
 // Utilities
 import { findObjectInArray } from "./utils/Utils";
@@ -24,11 +25,14 @@ import NotesInitialData from './data/NotesInitialData';
 import useCategories from  './functionality/CategoriesFunctionality';
 import useNotes from  './functionality/NotesFunctionality';
 import useStorage from "./functionality/StorageFunctionality";
+import firebase from "./utils/firebase";
 
 import notebotLogo from "./images/notebot-logo-nobg.png"
 
 // MAIN APPLICATION
 const Main = () => {
+
+  window.onbeforeunload = function() { return true; };
 
   // * STATE
 
@@ -91,7 +95,7 @@ const Main = () => {
     setSearchString(e.target.value);
   }
   React.useEffect(() => {
-    if (appFinishedLoading) {
+    if (appFinishedLoading && notes) {
       // Filter the selection down.
       notes.forEach((note) => {
         // Make sure note is in selected category (or all are visible).
@@ -119,18 +123,25 @@ const Main = () => {
           if (userIsExisting) {
             setCategories(await getCollectionFromCloud(newUserId, "categories"));
             setNotes(await getCollectionFromCloud(newUserId, "notes"));
-            const [newSearchString, newSelectedCategory, newSelectedNote, newActiveScreen] = await getStatesFromCloud(newUserId, ['searchString', 'selectedCategory', 'selectedNote', 'activeScreen']);
+            const [newSearchString, newSelectedCategory, newSelectedNote, newActiveScreen] = await getStatesFromCloud(newUserId);
             (newSearchString) ? setSearchString(newSearchString) : setSearchString("");
             (newSelectedCategory || newSelectedCategory === 0) ? setSelectedCategory(newSelectedCategory) : setSelectedCategory(-1);
-            (newSelectedNote || newSelectedCategory === 0) ? setSelectedNote(newSelectedNote) : setSelectedNote(null);
+            (newSelectedNote || newSelectedNote === 0) ? setSelectedNote(newSelectedNote) : setSelectedNote(null);
             (newActiveScreen) ? setActiveScreen(newActiveScreen) : setActiveScreen(0);
           } else {
             setCategories(CategoriesInitialData);
-            setNotes(NotesInitialData);
+            saveCollectionToCloud(CategoriesInitialData, "categories");
+            NotesInitialData().then((initialNotes) => {
+              setNotes(initialNotes);
+              saveCollectionToCloud(initialNotes, "notes");
+              setSelectedNote(0);
+              saveStatesToCloud(["", -1, 0, 0]);
+            });
           }
+          return userIsExisting;
         })
         // Set the app finished loading state to true as loading is complete.
-        .then(() => {
+        .then((userIsExisting) => {
           setAppFinishedLoading(true);
         })
     }
@@ -139,32 +150,31 @@ const Main = () => {
   }, []);
 
   // * LOAD APP STATE TO CLOUD
+  const saveStateDebounce = useDebouncedCallback(() => {
+    saveStatesToCloud([searchString, selectedCategory, selectedNote, activeScreen]);
+  }, 1000);
   React.useEffect(() => {
     if (appFinishedLoading) {
-      saveStatesToCloud([
-        {
-          key: 'searchString',
-          value: searchString
-        },
-        {
-          key: 'selectedCategory',
-          value: selectedCategory
-        },
-        {
-          key: 'selectedNote',
-          value: selectedNote
-        },
-        {
-          key: 'activeScreen',
-          value: activeScreen
-        },
-      ]);
+      saveStateDebounce();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchString, selectedCategory, selectedNote, activeScreen]);
 
   const noteColor = (selectedNote !== null) ? findObjectInArray(findObjectInArray(selectedNote, notes).category, categories).color : "white";
   const categoryColor = (selectedCategory !== null && selectedCategory !== -1) ? findObjectInArray(selectedCategory, categories).color : "white";
+
+  const [activeNoteDate, setActiveNoteDate] = useState(new Date());
+  React.useEffect(() => {
+    if (appFinishedLoading) {
+      const myDate = findObjectInArray(selectedNote, notes).modified;
+      if (myDate instanceof firebase.firestore.Timestamp) {
+        setActiveNoteDate(myDate.toDate());
+      } else {
+        setActiveNoteDate(myDate);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedNote]);
 
   // * RENDER
   return (
@@ -238,6 +248,7 @@ const Main = () => {
                     className="feature-input"
                     onInput={(e) => handleSearchInput(e)}
                     style={{ borderColor: categoryColor }}
+                    value={searchString}
                     />
                   <div className="list-search-icon">
                     <FontAwesomeIcon icon={faSearch} />
@@ -274,13 +285,13 @@ const Main = () => {
                   <h3>{(selectedNote !== null) ? findObjectInArray(selectedNote, notes).title : "Select a note"}</h3>
                   {(selectedNote !== null) ?
                     <p> edited <TimeAgo
-                        date={findObjectInArray(selectedNote, notes).modified}
+                        date={activeNoteDate}
                         formatter={(value: number, unit: TimeAgo.Unit, suffix: TimeAgo.Suffix) => {
                           if (unit === 'second') return 'just now';
                           const plural: string = value !== 1 ? 's' : '';
                           return `${value} ${unit}${plural} ${suffix}`;
                         }}
-                      /><span className="mobile-hidden">, on {findObjectInArray(selectedNote, notes).modified.toString()}</span></p>
+                      /></p>
                   :
                     <p>No note selected.</p>
                   }

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 // Utilities
 import { generateId, findObjectInArray, findPositionInArray } from "../utils/Utils";
+import { useDebouncedCallback } from 'use-debounce';
 
 // ** NOTES
 const useNotes = (categories, selectedCategory, saveCollectionToCloud, deleteItemFromCloud) => {
@@ -69,8 +70,13 @@ const useNotes = (categories, selectedCategory, saveCollectionToCloud, deleteIte
     deleteItemFromCloud(id, "notes");
   }
 
+  const saveNotesDebounce = useDebouncedCallback(([collection, collectionName]) => {
+    saveCollectionToCloud(collection, collectionName);
+  }, 2000);
   React.useEffect(() => {
-    saveCollectionToCloud(notes, "notes", changeNote);
+    if (notes && notes.length) {
+      saveNotesDebounce([notes, "notes"]);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notes]);
 

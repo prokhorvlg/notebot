@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import TimeAgo from 'react-timeago'
 import { findObjectInArray } from "../utils/Utils";
+import firebase from "../utils/firebase";
 
 const Note = ({ note, changeNote, deleteNote, selectNote, selectedNote, categories, setActiveScreen }) => {
 
@@ -47,6 +48,12 @@ const Note = ({ note, changeNote, deleteNote, selectNote, selectedNote, categori
     setActiveScreen(2);
   }
 
+  // Make sure to convert any Timestamp objects from Firebase
+  let thisNoteDate = note.modified;
+  if (note.modified instanceof firebase.firestore.Timestamp) {
+    thisNoteDate = note.modified.toDate();
+  }
+
   if (note.editMode) {
     return (
       <li className={"category-item edit-mode " + ((selectedNote === note.id) ? 'selected' : '')}>
@@ -72,7 +79,7 @@ const Note = ({ note, changeNote, deleteNote, selectNote, selectedNote, categori
             <h2>{note.title}</h2>
             <p>
               <TimeAgo
-                  date={note.modified}
+                  date={thisNoteDate}
                   formatter={(value: number, unit: TimeAgo.Unit, suffix: TimeAgo.Suffix) => {
                     if (unit === 'second') return 'just now';
                     const plural: string = value !== 1 ? 's' : '';
