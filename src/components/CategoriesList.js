@@ -9,6 +9,7 @@ const CategoriesList = ({ categories, changeCategory, deleteCategory, selectCate
     return (
       categories.map((category, i) => (
         <Category
+          key={category.id}
           category={category}
           changeCategory={changeCategory}
           deleteCategory = {deleteCategory}

@@ -19,7 +19,7 @@ const Note = ({ note, changeNote, deleteNote, selectNote, selectedNote, categori
       changeNote(note.id, { modified: new Date().toLocaleString() });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [note.contents, note.title]);
+  }, [note.title]);
 
   // Handle any events that occur in edit mode.
   const handleKeyDown = (e) => {

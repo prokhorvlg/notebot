@@ -10,6 +10,7 @@ const NotesList = ({ notes, changeNote, deleteNote, selectNote, selectedNote, ca
       .sort((a, b) => { return new Date(b.modified) - new Date(a.modified) })
       .map((note, i) =>
         <Note
+          key={note.id}
           note={note}
           changeNote={changeNote}
           deleteNote={deleteNote}

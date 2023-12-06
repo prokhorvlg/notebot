@@ -163,7 +163,7 @@ const Main = () => {
   const noteColor = (selectedNote !== null) ? findObjectInArray(findObjectInArray(selectedNote, notes).category, categories).color : "white";
   const categoryColor = (selectedCategory !== null && selectedCategory !== -1) ? findObjectInArray(selectedCategory, categories).color : "white";
 
-  const [activeNoteDate, setActiveNoteDate] = useState(new Date());
+  const [activeNoteDate, setActiveNoteDate] = useState(null);
   React.useEffect(() => {
     if (appFinishedLoading) {
       const myDate = findObjectInArray(selectedNote, notes).modified;

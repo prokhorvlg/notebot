@@ -4,11 +4,12 @@ import { findObjectInArray } from "../utils/Utils";
 import { Editor } from '@tinymce/tinymce-react';
 
 const NoteEditor = ({ selectedNote, notes, changeNote }) => {
+  const noteContents = findObjectInArray(selectedNote, notes).contents
 
   if (selectedNote !== null) {
     return (
       <Editor
-        value={findObjectInArray(selectedNote, notes).contents}
+        value={noteContents}
         apiKey="nacx0iqah4xpy7tb8prkc3hy42bdva4exnbaurkyumhwg0f2"
         init={{
           menubar: false,
@@ -29,7 +30,10 @@ const NoteEditor = ({ selectedNote, notes, changeNote }) => {
         }}
 
         onEditorChange={(newValue, editor) => {
-          changeNote(selectedNote, { contents: newValue });
+          const hasChanged = noteContents !== newValue
+          if (hasChanged) {
+            changeNote(selectedNote, { contents: newValue, modified: new Date().toLocaleString() });
+          }
         }}
       />
     );
