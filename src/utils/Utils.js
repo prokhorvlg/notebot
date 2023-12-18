@@ -38,7 +38,7 @@ export const findObjectInArray = (id, arrayOfObjects) => {
 export const findPositionInArray = (id, arrayOfObjects) => {
   return arrayOfObjects.map(function(object) {return object.id; }).indexOf(id);
 }
-export const insertParamIntoURL = (key: string, value: string) => {
+export const insertParamIntoURL = (key, value) => {
     key = encodeURIComponent(key);
     value = encodeURIComponent(value);
 

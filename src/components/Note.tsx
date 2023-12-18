@@ -1,13 +1,14 @@
 import React, { useRef, useEffect } from 'react';
 import TimeAgo from 'react-timeago'
 import { findObjectInArray } from "../utils/Utils";
-import firebase from "../utils/firebase";
+import firebase from "../api/firebase";
 
 const Note = ({ note, changeNote, deleteNote, selectNote, selectedNote, categories, setActiveScreen }) => {
 
   // Make sure that the input element is focused when the note is in edit mode.
-  const noteRef = useRef(null);
+  const noteRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
+    if (!noteRef.current) return
     if (note.editMode) {
       noteRef.current.focus();
     }
@@ -80,9 +81,9 @@ const Note = ({ note, changeNote, deleteNote, selectNote, selectedNote, categori
             <p>
               <TimeAgo
                   date={thisNoteDate}
-                  formatter={(value: number, unit: TimeAgo.Unit, suffix: TimeAgo.Suffix) => {
+                  formatter={(value, unit, suffix) => {
                     if (unit === 'second') return 'just now';
-                    const plural: string = value !== 1 ? 's' : '';
+                    const plural = value !== 1 ? 's' : '';
                     return `${value} ${unit}${plural} ${suffix}`;
                   }}
                 />

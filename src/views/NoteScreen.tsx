@@ -7,30 +7,30 @@ import TimeAgo from 'react-timeago'
 import { useDebouncedCallback } from 'use-debounce';
 
 // Utilities
-import { findObjectInArray } from "./utils/Utils";
+import { findObjectInArray } from "../utils/Utils";
 
 // Components
-import CategoryAll from './components/CategoryAll';
-import CategoriesList from './components/CategoriesList';
-import CategoryColorPicker from './components/CategoryColorPicker';
-import CategoryEditControls from './components/CategoryEditControls';
-import NotesList from './components/NotesList';
-import NoteEditor from './components/NoteEditor';
+import CategoryAll from '../components/CategoryAll';
+import CategoriesList from '../components/CategoriesList';
+import CategoryColorPicker from '../components/CategoryColorPicker';
+import CategoryEditControls from '../components/CategoryEditControls';
+import NotesList from '../components/NotesList';
+import NoteEditor from '../components/NoteEditor';
 
 // Initial Data
-import CategoriesInitialData from './data/CategoriesInitialData';
-import NotesInitialData from './data/NotesInitialData';
+import CategoriesInitialData from '../data/CategoriesInitialData';
+import NotesInitialData from '../data/NotesInitialData';
 
 // Functionality
-import useCategories from  './functionality/CategoriesFunctionality';
-import useNotes from  './functionality/NotesFunctionality';
-import useStorage from "./functionality/StorageFunctionality";
-import firebase from "./utils/firebase";
+import useCategories from  '../functionality/CategoriesFunctionality';
+import useNotes from  '../functionality/NotesFunctionality';
+import useStorage from "../functionality/StorageFunctionality";
+import firebase from "@/api/firebase.js";
 
-import notebotLogo from "./images/notebot-logo-nobg.png"
+import notebotLogo from "@/images/notebot-logo-nobg.png"
 
 // MAIN APPLICATION
-const Main = () => {
+const NoteScreen = () => {
 
   window.onbeforeunload = function() { return true; };
 
@@ -327,4 +327,4 @@ const Main = () => {
 
 };
 
-export default Main;
+export default NoteScreen;
