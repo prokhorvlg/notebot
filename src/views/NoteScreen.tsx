@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // Addons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -115,7 +115,7 @@ const NoteScreen = () => {
   const [activeScreen, setActiveScreen] = useState(0);
 
   // ** LOAD APP DATA FROM CLOUD
-  React.useEffect(() => {
+  useEffect(() => {
     async function loadApp() {
       initUser() // Load the user data or creates a new one if they do not exist on load.
         // Load data.
@@ -146,34 +146,32 @@ const NoteScreen = () => {
         })
     }
     loadApp();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // * LOAD APP STATE TO CLOUD
   const saveStateDebounce = useDebouncedCallback(() => {
     saveStatesToCloud([searchString, selectedCategory, selectedNote, activeScreen]);
   }, 1000);
-  React.useEffect(() => {
+  useEffect(() => {
     if (appFinishedLoading) {
       saveStateDebounce();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchString, selectedCategory, selectedNote, activeScreen]);
 
   const noteColor = (selectedNote !== null) ? findObjectInArray(findObjectInArray(selectedNote, notes).category, categories).color : "white";
   const categoryColor = (selectedCategory !== null && selectedCategory !== -1) ? findObjectInArray(selectedCategory, categories).color : "white";
 
-  const [activeNoteDate, setActiveNoteDate] = useState(null);
-  React.useEffect(() => {
+  const [activeNoteDate, setActiveNoteDate] = useState<Date | null>(null);
+  useEffect(() => {
     if (appFinishedLoading) {
       const myDate = findObjectInArray(selectedNote, notes).modified;
       if (myDate instanceof firebase.firestore.Timestamp) {
-        setActiveNoteDate(myDate.toDate());
+        const firestoreDataToDate = myDate.toDate()
+        setActiveNoteDate(firestoreDataToDate);
       } else {
         setActiveNoteDate(myDate);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedNote]);
 
   // * RENDER
