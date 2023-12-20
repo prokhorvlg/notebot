@@ -3,7 +3,7 @@ import { Timestamp } from "firebase/firestore"
 export type Note = {
     id: string
     title: string
-    category: any
+    category: string
     contents: string
     modified: Date
 

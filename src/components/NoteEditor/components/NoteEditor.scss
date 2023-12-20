@@ -1,0 +1,21 @@
+@import 'src/styles/variables.scss';
+
+.quill {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  .ql-toolbar {
+    border: none;
+    padding: 10px;
+    border-bottom: 1px dotted black;
+  }
+  .ql-container {
+    border: none;
+    padding: 20px;
+    overflow-y: auto;
+    height: auto;
+    @media (max-width: $breakpoint-med) {
+      padding: 10px;
+    }
+  }
+}

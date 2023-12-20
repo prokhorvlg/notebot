@@ -1,6 +1,9 @@
 import { Note } from "@/types/noteTypes"
 import { findObjectInArray } from "@/utils/objectUtils"
-// import { Editor } from '@tinymce/tinymce-react'
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import './NoteEditor.scss'
+import { useEffect, useState } from "react";
 
 const NoteEditor = ({
   selectedNoteID,
@@ -15,34 +18,37 @@ const NoteEditor = ({
   const selectedNote = findObjectInArray(selectedNoteID, notes)
   const noteContents = selectedNote ? selectedNote.contents : null
 
-  if (selectedNote && noteContents) {
-    return null
-    //   <Editor
-    //     value={noteContents}
-    //     apiKey="nacx0iqah4xpy7tb8prkc3hy42bdva4exnbaurkyumhwg0f2" // nacx0iqah4xpy7tb8prkc3hy42bdva4exnbaurkyumhwg0f2 //lxoa4wxv9aflidpyv7x4eeplnfhtz2yn7xa8otn6mo3bdsy7
-    //     init={{
-    //       menubar: false,
-    //       plugins: [
-    //         "link",
-    //         "code",
-    //         "lists"
-    //         // "advlist autolink lists link charmap print preview anchor help searchreplace visualblocks code insertdatetime media table paste wordcount",
-    //       ],
-    //       toolbar:
-    //         "undo redo | formatselect | bold italic | blocks fontfamily fontsize | alignleft aligncenter alignright | \
-    //         bullist numlist outdent indent | link",
-    //     }}
-    //     onEditorChange={(newValue, editor) => {
-    //       const hasChanged = noteContents !== newValue
-    //       if (hasChanged) {
-    //         changeNote(selectedNoteID, {
-    //           contents: newValue,
-    //           modified: new Date(),
-    //         })
-    //       }
-    //     }}
-    //   />
-    
+  console.log("NoteEditor: selectedNote", selectedNote)
+  console.log("NoteEditor: noteContents", noteContents)
+
+  const onEditorChange = (newValue: string) => {
+    console.log("onEditorChange: noteContents", noteContents)
+    console.log("onEditorChange: newValue", newValue)
+    const hasChanged = noteContents !== newValue
+    console.log("onEditorChange hasChanged", hasChanged)
+    if (hasChanged) {
+      changeNote(selectedNoteID, {
+        contents: newValue,
+        modified: new Date()
+      })
+    }
+  }
+
+  if (selectedNote && noteContents !== null) {
+    return (
+      <ReactQuill 
+        value={noteContents}
+        onChange={onEditorChange} 
+        modules={{
+          toolbar: [
+            [{ 'header': [1, 2, 3, false] }],
+            ['bold', 'italic', 'underline','strike', 'blockquote'],
+            [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+            ['link', 'code', 'clean'],
+          ]
+        }}
+      />
+    )    
   } else {
     return null
   }

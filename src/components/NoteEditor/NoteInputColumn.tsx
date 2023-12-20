@@ -11,6 +11,8 @@ const NoteInputColumn = () => {
 
   const [activeScreen, setActiveScreen] = useAtom(activeScreenAtom)
 
+  console.log("selectedNoteID", selectedNoteID)
+
   return (
     <div
       className={
