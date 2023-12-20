@@ -26,7 +26,6 @@ const NoteEditor = ({
 
   const onEditorChange = (newValue: string) => {
     const hasChanged = noteContent !== newValue
-    console.log(newValue)
     if (hasChanged) {
       changeNote(selectedNoteID, {
         contents: newValue,

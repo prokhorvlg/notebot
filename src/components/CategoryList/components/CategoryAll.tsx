@@ -14,8 +14,9 @@ const CategoryAll = () => {
 
   // Handles the click of the "all" category which displays all notes.
   const allCategoryClick = (e) => {
-    const isMobile = window.matchMedia("screen and (max-width: 1024px)").matches
     e.preventDefault()
+
+    const isMobile = window.matchMedia("screen and (max-width: 1024px)").matches
     selectCategory(null)
     if (!isMobile) setActiveScreen(ActiveScreen.NotesList)
   }
@@ -31,7 +32,7 @@ const CategoryAll = () => {
       <button
         id="category-all"
         className={`category-button category-all ${
-          selectedCategoryID === null ? "selected" : ""
+          !selectedCategoryID ? "selected" : ""
         }`}
         onClick={allCategoryClick}
       >

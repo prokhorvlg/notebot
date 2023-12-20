@@ -50,7 +50,6 @@ const CategoryListItem = ({ category }: { category: Category }) => {
 
   // Handle any events that occur in normal mode (as an anchor).
   const handleClick = () => {
-    // I know... it's a last minute feature. Don't judge me.
     const isMobile = window.matchMedia("screen and (max-width: 1024px)").matches
     if (!categorySetMode) {
       // Normal category select mode, just select the targetted category.

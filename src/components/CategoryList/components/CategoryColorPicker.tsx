@@ -21,17 +21,17 @@ const CategoryColorPicker = () => {
 
   // On color picker update, set app state to reflect color.
   const debounced = useDebouncedCallback((value) => {
-    if (selectedCategoryID !== null) {
-      setValue(value)
-      changeCategory(selectedCategoryID, { color: value })
-    }
+    if (!selectedCategoryID) return
+
+    setValue(value)
+    changeCategory(selectedCategoryID, { color: value })
   }, 200)
 
-  // Make sure the color pickers default value is udpated whenever the category color changes.
+  // Make sure the color pickers default value is updated whenever the category color changes.
   useEffect(() => {
-    if (selectedCategoryID !== null) {
-      setValue(selectedCategoryColor)
-    }
+    if (!selectedCategoryID) return
+
+    setValue(selectedCategoryColor)
   }, [selectedCategoryColor])
 
   // Handle the user clicking outside of the color picker, effectively ending the selection.
