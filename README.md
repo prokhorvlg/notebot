@@ -18,6 +18,8 @@ Notebot is currently hosted on Vercel, at [notebot-prokhorvlg.vercel.app](notebo
 
 - **Timestamps**: Each note has a stored date for when it was last modified, which is how the notes list is sorted and provides functionality for the time ago tags.
 
+- **Responsive**: It's fully usable on mobile, too!
+
 # Technologies
 
 *and why I chose them*
