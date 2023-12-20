@@ -1,4 +1,4 @@
-import NoteScreen from '@/views/NoteScreen';
+import NoteScreen from '@/components/NoteScreen';
 import ReactDOM from 'react-dom/client';
 import './styles/style.scss'
 

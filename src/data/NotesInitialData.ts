@@ -1,6 +1,8 @@
-const NotesInitialData = async () => {
+import { Note } from "@/types/noteTypes";
+
+const NotesInitialData = async (): Promise<Note[]> => {
   const dateAdd = (interval, units) => {
-    var ret = new Date();
+    var ret: Date | undefined = new Date();
     switch(String(interval).toLowerCase()) {
       case 'year'   :  ret.setFullYear(ret.getFullYear() + units); break;
       case 'quarter':  ret.setMonth(ret.getMonth() + 3*units); break;
@@ -10,22 +12,23 @@ const NotesInitialData = async () => {
       case 'hour'   :  ret.setTime(ret.getTime() + units*3600000);  break;
       case 'minute' :  ret.setTime(ret.getTime() + units*60000);  break;
       case 'second' :  ret.setTime(ret.getTime() + units*1000);  break;
-      default       :  ret = undefined;  break;
+      default       :  ret = new Date();  break;
     }
     return ret;
   }
   return [
     {
-      id: 0,
+      id: crypto.randomUUID(),
       title: 'Welcome!',
       category: 0,
       modified: new Date(),
 contents: `<h2 class="editor-font" style="font-family: Inter;">Hey there, visitor!</h2><p class="editor-font" style="font-family: Inter;">Notebot is a demo for a simple React note-taking application. Feel free to mess around! You aren't breaking anything.</p><p class="editor-font" style="font-family: Inter;">The demo is not intended for serious use. <strong>Your changes may be deleted at any time.</strong></p><p class="editor-font" style="font-family: Inter;">Created by <a href="https://twitter.com/prokhorVLG" target="_blank" rel="noopener">@prokhorvlg (Valentin Sigalov)</a>.</p><p class="editor-font" style="font-family: Inter;">&nbsp;</p><h3 class="editor-font" style="font-family: Inter;">Links</h3><p class="editor-font" style="font-family: Inter;">My <strong>Website</strong>: <a href="https://www.valentinsigalov.com/" target="_blank" rel="noopener">https://www.valentinsigalov.com/</a></p><p class="editor-font" style="font-family: Inter;">My <strong>LinkedIn</strong>: <a href="https://www.linkedin.com/in/valentin-sigalov/" target="_blank" rel="noopener">https://www.linkedin.com/in/valentin-sigalov/</a></p><p class="editor-font" style="font-family: Inter;">My <strong>Github</strong>: <a href="https://github.com/prokhorvlg" target="_blank" rel="noopener">https://github.com/prokhorvlg</a></p>`,
       editMode: false,
-      visible: true
+      visible: true,
+      selected: false
     },
     {
-      id: 1,
+      id: crypto.randomUUID(),
       title: 'Features and tech',
       category: 0,
       modified: dateAdd("minute", -55),
@@ -41,10 +44,11 @@ contents: `<p class="editor-font" style="font-family: Inter;">Notebot<em> </em>i
 <h3 class="editor-font" style="font-family: Inter;"><strong>Timestamps</strong></h3>
 <p class="editor-font" style="font-family: Inter;">Each note has a stored Date for when it was last modified, which is also how the notes list is sorted, so the most recent notes remain on top. A nifty plugin called <a href="https://www.npmjs.com/package/react-timeago" target="_blank" rel="noopener">react-timeago</a> takes the stored date object and spits out a more understandable string.</p>`,
       editMode: false,
-      visible: true
+      visible: true,
+      selected: false
     },
     {
-      id: 2,
+      id: crypto.randomUUID(),
       title: 'Note with list',
       category: 1,
       modified: dateAdd("hour", -5),
@@ -64,10 +68,11 @@ contents: `<ul>
 <li class="editor-font" style="font-family: Inter;">Flux Capacitor</li>
 </ul>`,
       editMode: false,
-      visible: true
+      visible: true,
+      selected: false
     },
     {
-      id: 3,
+      id: crypto.randomUUID(),
       title: 'Recommended video games',
       category: 2,
       modified: dateAdd("hour", -17),
@@ -76,10 +81,11 @@ contents: `<p class="editor-font" style="font-family: Inter;">So many fantastic 
 <li class="editor-font" style="font-family: Inter;">R</li>
 </ul>`,
       editMode: false,
-      visible: true
+      visible: true,
+      selected: false
     },
     {
-      id: 4,
+      id: crypto.randomUUID(),
       title: 'Area 51 vacation plans',
       category: 3,
       modified: dateAdd("week", -1),
@@ -95,17 +101,19 @@ contents: `<h1 class="editor-font" style="font-family: Inter;">ⴄ⑾⧐⛡⃥�
 </ul>
 <p class="editor-font" style="font-family: Inter;">⼈⁙☿⮣⩶⑫⋜⍑₺⿻ℸ┹⋂⧸</p>`,
       editMode: false,
-      visible: true
+      visible: true,
+      selected: false
     },
     {
-      id: 5,
+      id: crypto.randomUUID(),
       title: 'An old note',
       category: 3,
       modified: dateAdd("month", -4),
 contents: `<h1>An old note</h1>
 <p>This is an old note, created several months ago.</p>`,
       editMode: false,
-      visible: true
+      visible: true,
+      selected: false
     },
   ];
 }
