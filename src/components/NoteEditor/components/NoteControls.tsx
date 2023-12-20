@@ -1,3 +1,4 @@
+import Button from "@/components/common/Button"
 import { useNotesStore } from "@/state/notesStore"
 import { activeScreenAtom, categorySetModeAtom } from "@/state/userAtoms"
 import {
@@ -14,40 +15,37 @@ const NoteControls = () => {
   const [activeScreen, setActiveScreen] = useAtom(activeScreenAtom)
   const [categorySetMode, setCategorySetMode] = useAtom(categorySetModeAtom)
 
+  const onChangeTitle = (e) => {
+    changeNote(selectedNoteID, { editMode: true })
+    setActiveScreen(1)
+  }
+
+  const onDeleteNote = (e) => {
+    deleteNote(selectedNoteID)
+    setActiveScreen(1)
+  }
+
+  const onChangeCategory = (e) => {
+    if (selectedNoteID !== null) {
+      setCategorySetMode(true)
+      setActiveScreen(0)
+    }
+  }
+
   return (
     <div className="note-controls">
-      <button
-        className="feature-link"
-        onClick={(e) => {
-          changeNote(selectedNoteID, { editMode: true })
-          setActiveScreen(1)
-        }}
-      >
+      <Button onClick={onChangeTitle}>
         <FontAwesomeIcon icon={faEdit} className="fa-link-icon" />
         <span>Change title</span>
-      </button>
-      <button
-        className="feature-link"
-        onClick={(e) => {
-          deleteNote(selectedNoteID)
-          setActiveScreen(1)
-        }}
-      >
+      </Button>
+      <Button onClick={onDeleteNote}>
         <FontAwesomeIcon icon={faTrashAlt} className="fa-link-icon" />
         <span>Delete note</span>
-      </button>
-      <button
-        className="feature-link"
-        onClick={(e) => {
-          if (selectedNoteID !== null) {
-            setCategorySetMode(true)
-            setActiveScreen(0)
-          }
-        }}
-      >
+      </Button>
+      <Button onClick={onChangeCategory}>
         <FontAwesomeIcon icon={faExchangeAlt} className="fa-link-icon" />
         <span>Change category</span>
-      </button>
+      </Button>
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import NotesList from "@/components/NotesList/components/NotesList"
+import Button from "@/components/common/Button"
 import useFilterNotes from "@/hooks/useFilterNotes"
 import { useCategoriesStore } from "@/state/categoriesStore"
 import { useNotesStore } from "@/state/notesStore"
@@ -64,10 +65,10 @@ const NotesListColumn = () => {
         <NotesList />
       </ul>
       <div className="list-notes-add">
-        <button onClick={createEmptyNote} className="feature-link">
+        <Button onClick={createEmptyNote}>
           <FontAwesomeIcon icon={faPlusSquare} className="fa-link-icon" />
           <span>Add note</span>
-        </button>
+        </Button>
       </div>
     </div>
   )

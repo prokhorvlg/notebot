@@ -9,6 +9,7 @@ import { activeScreenAtom } from "@/state/userAtoms"
 import { ActiveScreen } from "@/types/uiTypes"
 import { useAtom } from "jotai"
 import { useCategoriesStore } from "@/state/categoriesStore"
+import Button from "@/components/common/Button"
 
 const CategoriesListColumn = () => {
   const { createEmptyCategory } = useCategoriesStore()
@@ -37,10 +38,10 @@ const CategoriesListColumn = () => {
         <CategoryColorPicker />
         <CategoryEditControls />
         <div className="main-categories-add">
-          <button onClick={createEmptyCategory} className="feature-link">
+          <Button onClick={createEmptyCategory}>
             <FontAwesomeIcon icon={faPlusSquare} className="fa-link-icon" />
             <span>Add category</span>
-          </button>
+          </Button>
         </div>
       </div>
     </div>
