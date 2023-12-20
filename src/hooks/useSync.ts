@@ -4,7 +4,7 @@ import { useCategoriesStore } from "@/state/categoriesStore"
 import { StorageKey } from "@/types/storageTypes"
 import { useNotesStore } from "@/state/notesStore"
 import CategoriesInitialData from "@/data/CategoriesInitialData"
-import NotesInitialData from "@/data/NotesInitialData"
+import NotesInitialData, { DEFAULT_NOTE_ID } from "@/data/NotesInitialData"
 import {
   searchStringAtom,
   appFinishedLoadingAtom,
@@ -20,6 +20,7 @@ import { createNewUser, doesUserExist } from "@/api/services/users"
 import { getCategoriesFromCloud, saveCategoriesToCloud } from "@/api/services/categories"
 import { getNotesFromCloud, saveNotesToCloud } from "@/api/services/notes"
 import { getStatesFromCloud, saveStatesToCloud } from "@/api/services/appstate"
+import { ActiveScreen } from "@/types/uiTypes"
 
 const CLOUD_SYNC_DELAY = 2000
 
@@ -98,13 +99,13 @@ const useSync = () => {
     saveNotesToCloud(notesInitialData, userID)
 
     // Initialize new app state...
-    setSelectedNoteID(0)
+    setSelectedNoteID(DEFAULT_NOTE_ID)
     saveStatesToCloud(
       {
         searchString: "",
         selectedCategoryID: null,
         selectedNoteID: null,
-        activeScreen: 0,
+        activeScreen: ActiveScreen.CategoriesList,
       },
       userID
     )

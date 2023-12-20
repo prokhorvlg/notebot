@@ -1,11 +1,9 @@
-import { firebaseDB } from "@/api/firebase"
+import { usersCollection } from "@/api/firebase"
 import { Note } from "@/types/noteTypes"
 import { StorageKey } from "@/types/storageTypes"
 import { getEntryFromByKey } from "@/utils/apiUtils"
 import { convertTimestampsToDates } from "@/utils/dateUtils"
-import { collection, doc, updateDoc } from "firebase/firestore"
-
-const usersCollection = collection(firebaseDB, StorageKey.Users)
+import { doc, updateDoc } from "firebase/firestore"
 
 // Save all notes to cloud.
 export const saveNotesToCloud = async (notes: Note[], userID: string) => {

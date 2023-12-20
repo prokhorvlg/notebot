@@ -9,6 +9,7 @@ import NoteInputColumn from "@/components/NoteEditor/NoteInputColumn"
 import useSync from "@/hooks/useSync"
 import NotesListColumn from "@/components/NotesList/NotesListColumn"
 
+
 const NoteScreen = () => {
   // Handles all cloud loading and syncing.
   useSync()

@@ -93,11 +93,6 @@ export const useCategoriesStore = create<CategoriesState>((set) => ({
       const categoryPosition = findPositionInArray(id, state.categories)
       newCategories.splice(categoryPosition, 1)
 
-      // Delete the category from the cloud.
-      //deleteItemFromCloud(id, StorageKey.Categories, userID)
-      // Delete all notes that were associated with this category.
-      //deleteCategoryNotes(id); //TODO
-
       return {
         categories: newCategories,
         selectedCategoryID: null,

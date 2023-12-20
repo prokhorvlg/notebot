@@ -1,10 +1,8 @@
-import { firebaseDB } from "@/api/firebase"
+import { usersCollection } from "@/api/firebase"
 import { Category } from "@/types/categoryTypes"
 import { StorageKey } from "@/types/storageTypes"
 import { getEntryFromByKey } from "@/utils/apiUtils"
-import { collection, deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore"
-
-const usersCollection = collection(firebaseDB, StorageKey.Users)
+import { doc, updateDoc } from "firebase/firestore"
 
 // Save all categories to cloud.
 export const saveCategoriesToCloud = async (
