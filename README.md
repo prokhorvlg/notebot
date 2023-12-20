@@ -4,7 +4,7 @@
 
 Feel free to mess around! You aren't breaking anything. The demo is not intended for serious use, so your changes may be deleted at any time.
 
-Notebot is currently hosted on Vercel, at [this link]().
+Notebot is currently hosted on Vercel, at [notebot-prokhorvlg.vercel.app](notebot-prokhorvlg.vercel.app).
 
 # Features
 
