@@ -1,6 +1,7 @@
 // Load in all fonts used for project.
 // font-family: 'Rubik'
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500;700');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;600;700');
 
 $font-heading: 'Rubik', sans-serif;
 $font-body: 'Rubik', sans-serif;
@@ -20,15 +21,15 @@ body {
 // Set up base fonts for all elements.
 h1, h2, h3, h4, h5, h6 {
   font-family: $font-heading;
-  font-size: 2rem;
+  font-size: 32px;
   margin: 0;
-}
-
-body, p, button {
-  font-family: $font-heading;
   font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
-p {
-  font-size: 1rem;
+body, p, button, li, blockquote {
+  font-family: $font-body;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
 }
