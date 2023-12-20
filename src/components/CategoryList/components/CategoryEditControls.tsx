@@ -17,33 +17,30 @@ const CategoryEditControls = () => {
 
   // Handles click of edit category title click.
   const editCategoryTitleClick = (e) => {
+    if (!selectedCategoryID) return
+    
     // Set the target category into edit mode, unless it is the all category.
-    if (selectedCategoryID !== null) {
-      changeCategory(selectedCategoryID, { editMode: true })
-    }
+    changeCategory(selectedCategoryID, { editMode: true })
   }
 
   // Handles click of edit color category.
   const editCategoryColorClick = (e) => {
+    if (!selectedCategoryID) return
+
     // Set the target category into edit mode, unless it is the all category.
-    if (selectedCategoryID !== null) {
-      changeCategory(selectedCategoryID, {
-        editMode: false,
-      })
-      if (editColorMode === true) {
-        setEditColorMode(false)
-      } else {
-        setEditColorMode(true)
-      }
-    }
+    changeCategory(selectedCategoryID, {
+      editMode: false,
+    })
+
+    setEditColorMode(!editColorMode)
   }
 
   // Handles click of delete category.
   const deleteCategoryClick = (e) => {
+    if (!selectedCategoryID) return
+    
     // Delete the currently selected category, unless it is the all category.
-    if (selectedCategoryID !== null) {
-      deleteCategory(selectedCategoryID)
-    }
+    deleteCategory(selectedCategoryID)
   }
 
   return (
