@@ -148,5 +148,3 @@ This application was refactored in late 2023...
 - Don't want too much middleware or it gets hard to navigate a large project. Hook, state, and API should generally be enough, though helper functions should always be seperated out into utils.
 
 - Don't spend too much time trying to come up with clever logic. Clean architecture and readable code is far more important, and UI performance gains at this level are trivial. Might have different considerations with a larger project with more entries.
-
-- 
