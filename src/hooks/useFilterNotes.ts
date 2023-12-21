@@ -8,6 +8,13 @@ import {
 import { useAtom } from "jotai"
 import { useEffect } from "react"
 
+// DEV NOTE
+// Don't have time to do this now, but this should be redone.
+// Nowadays, I would instead either create...
+// - a special Jotai getter that returns a filtered version of the notes, or 
+// - a similar hook which returns a "filter notes" function that lets filtering be handled on the component level.
+// There is no need to modify the original state in this situation.
+
 const useFilterNotes = () => {
   const { selectedCategoryID } = useCategoriesStore()
 
@@ -23,7 +30,6 @@ const useFilterNotes = () => {
   useEffect(() => {
     if (!appFinishedLoading || !notes || !changeNote) return
 
-    // Filter the list of notes down...
     notes.forEach((note) => {
       // Is note in this category?
       const noteIsInSelectedCategory =
