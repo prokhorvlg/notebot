@@ -344,6 +344,15 @@ body {
         display: none;
       }
 
+      .no-notes-found {
+        display: block;
+        text-align: center;
+        margin: 5px;
+        padding: 36px 20px;
+        border-radius: 10px;
+        border: 2px dashed $brand-dark;
+      }
+
       li {
         padding: 6px 6px 0 6px;
         display: flex;
