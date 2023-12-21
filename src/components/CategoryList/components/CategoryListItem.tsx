@@ -1,82 +1,32 @@
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, forwardRef, ForwardedRef, useImperativeHandle } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons"
-import { useCategoriesStore } from "@/state/categoriesStore"
 import { Category } from "@/types/categoryTypes"
-import { activeScreenAtom, categorySetModeAtom } from "@/state/userAtoms"
-import { useAtom } from "jotai"
-import { useNotesStore } from "@/state/notesStore"
-import { ActiveScreen } from "@/types/uiTypes"
 
-const CategoryListItem = ({ category }: { category: Category }) => {
-  const { selectedCategoryID, changeCategory, selectCategory, deleteCategory } =
-    useCategoriesStore()
+interface CategoryListItemProps {
+  category: Category
+  selectedCategoryID: string | null
+  categorySetMode: boolean
+  setEditMode: (category: Category) => void
+  exitEditMode: (category: Category, value: string) => void
+  editCategoryName: (category: Category, value: string) => void
+}
 
-  const { selectedNoteID, changeNote } = useNotesStore()
+const CategoryListItem = ({
+  category,
+  selectedCategoryID,
+  categorySetMode,
+  setEditMode,
+  exitEditMode,
+  editCategoryName
+}: CategoryListItemProps) => {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
 
-  const [categorySetMode, setCategorySetMode] = useAtom(categorySetModeAtom)
-  const [activeScreen, setActiveScreen] = useAtom(activeScreenAtom)
-
-  // Make sure that the input element is focused when the category is in edit mode.
-  const categoryInputRef = useRef<HTMLInputElement>(null)
-  const categoryButtonRef = useRef<HTMLButtonElement>(null)
   useEffect(() => {
-    if (!category.editMode) return
-
-    if (categoryInputRef.current) categoryInputRef.current.focus()
-    if (categoryButtonRef.current) categoryButtonRef.current.focus()
+    inputRef.current?.focus()
+    buttonRef.current?.focus()
   }, [category.editMode])
-
-  // Handle any events that occur in edit mode.
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      e.target.blur()
-    }
-  }
-  const handleExit = (e) => {
-    // If the input is empty, delete the Category.
-    if (e.target.value === "") {
-      deleteCategory(category.id)
-    } else {
-      // If input is not empty, update the Category state.
-      changeCategory(category.id, { name: e.target.value, editMode: false })
-      // Select the newly edited category.
-      selectCategory(category.id)
-    }
-  }
-  const handleEdit = (e) => {
-    changeCategory(category.id, { name: e.target.value })
-  }
-
-  // Handle any events that occur in normal mode (as an anchor).
-  const handleClick = () => {
-    const isMobile = window.matchMedia("screen and (max-width: 1024px)").matches
-    if (!categorySetMode) {
-      // Normal category select mode, just select the targetted category.
-      selectCategory(category.id)
-      if (!isMobile) setActiveScreen(ActiveScreen.NotesList)
-    } else {
-      // If we are in set mode for a note,
-      // Change the selected note's category to this one.
-      changeNote(selectedNoteID, { category: category.id })
-      // Reset category set mode.
-      setCategorySetMode(false)
-      selectCategory(category.id)
-      if (!isMobile) setActiveScreen(ActiveScreen.NotesList)
-    }
-  }
-
-  const handleMobileClick = () => {
-    if (!categorySetMode) {
-      selectCategory(category.id)
-      setActiveScreen(ActiveScreen.NotesList)
-    } else {
-      changeNote(selectedNoteID, { category: category.id })
-      setCategorySetMode(false)
-      selectCategory(category.id)
-      setActiveScreen(ActiveScreen.NotesList)
-    }
-  }
 
   if (category.editMode) {
     return (
@@ -88,12 +38,16 @@ const CategoryListItem = ({ category }: { category: Category }) => {
       >
         <input
           id={"category-" + category.id}
-          ref={categoryInputRef}
+          ref={inputRef}
           placeholder="Enter a category title."
           className="feature-input"
-          onInput={(e) => handleEdit(e)}
-          onKeyDown={(e) => handleKeyDown(e)}
-          onBlur={(e) => handleExit(e)}
+          onInput={(e) => editCategoryName(category, (e.target as HTMLInputElement).value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              (e.target as HTMLInputElement).blur()
+            }
+          }}
+          onBlur={(e) => exitEditMode(category, (e.target as HTMLInputElement).value)}
           value={category.name}
           style={{ borderColor: category.color }}
         />
@@ -109,7 +63,7 @@ const CategoryListItem = ({ category }: { category: Category }) => {
       >
         <button
           id={"category-" + category.id}
-          ref={categoryButtonRef}
+          ref={buttonRef}
           className={
             "category-button " +
             (selectedCategoryID === category.id ? "selected" : "")
@@ -119,13 +73,13 @@ const CategoryListItem = ({ category }: { category: Category }) => {
             borderColor: category.color,
             backgroundColor: category.color,
           }}
-          onClick={(e) => handleClick()}
+          onClick={(e) => setEditMode(category)}
         >
           {category.name}
         </button>
         <button
           className="mobile-category-open"
-          onClick={(e) => handleMobileClick()}
+          onClick={(e) => setEditMode(category)}
           style={{ color: category.color, borderColor: category.color }}
         >
           <FontAwesomeIcon icon={faArrowRight} />

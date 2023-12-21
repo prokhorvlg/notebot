@@ -3,8 +3,9 @@ import { useCategoriesStore } from "@/state/categoriesStore"
 import { useNotesStore } from "@/state/notesStore"
 import { activeScreenAtom } from "@/state/userAtoms"
 import { Note } from "@/types/noteTypes"
+import { ActiveScreen } from "@/types/uiTypes"
 import { findObjectInArray } from "@/utils/objectUtils"
-import { useAtom } from "jotai"
+import { useSetAtom } from "jotai"
 import { useRef, useEffect } from "react"
 
 const NoteListItem = ({ note }: { note: Note }) => {
@@ -12,7 +13,7 @@ const NoteListItem = ({ note }: { note: Note }) => {
 
   const { selectedNoteID, changeNote, deleteNote, selectNote } = useNotesStore()
 
-  const [activeScreen, setActiveScreen] = useAtom(activeScreenAtom)
+  const setActiveScreen = useSetAtom(activeScreenAtom)
 
   // Make sure that the input element is focused when the note is in edit mode.
   const noteRef = useRef<HTMLInputElement>(null)
@@ -54,7 +55,7 @@ const NoteListItem = ({ note }: { note: Note }) => {
   // Handle any events that occur in normal mode (as an anchor).
   const handleClick = (e) => {
     selectNote(note.id)
-    setActiveScreen(2)
+    setActiveScreen(ActiveScreen.NoteEditor)
   }
 
   const parentCategory = findObjectInArray(note.category, categories)

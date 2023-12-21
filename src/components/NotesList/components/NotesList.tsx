@@ -12,11 +12,11 @@ const NotesList = () => {
   return notes
     .sort((a, b) => {
       return (
-        (new Date((b as any).modified) as any) -
-        (new Date((a as any).modified) as any)
+        (new Date((b).modified) as any) -
+        (new Date((a).modified) as any)
       )
     })
-    .map((note: Note, i) => (
+    .map((note: Note) => (
       <NoteListItem
         key={note.id}
         note={note}

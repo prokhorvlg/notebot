@@ -7,13 +7,13 @@ import {
   faExchangeAlt,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useAtom } from "jotai"
+import { useSetAtom } from "jotai"
 
 const NoteControls = () => {
   const { changeNote, deleteNote, selectedNoteID } = useNotesStore()
 
-  const [activeScreen, setActiveScreen] = useAtom(activeScreenAtom)
-  const [categorySetMode, setCategorySetMode] = useAtom(categorySetModeAtom)
+  const setActiveScreen = useSetAtom(activeScreenAtom)
+  const setCategorySetMode = useSetAtom(categorySetModeAtom)
 
   const onChangeTitle = (e) => {
     changeNote(selectedNoteID, { editMode: true })
