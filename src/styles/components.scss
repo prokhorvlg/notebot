@@ -351,6 +351,7 @@ body {
         padding: 36px 20px;
         border-radius: 10px;
         border: 2px dashed $brand-dark;
+        user-select: none;
       }
 
       li {

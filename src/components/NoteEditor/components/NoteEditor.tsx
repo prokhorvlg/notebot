@@ -9,30 +9,20 @@ import TextAlign from "@tiptap/extension-text-align"
 import Superscript from "@tiptap/extension-superscript"
 import SubScript from "@tiptap/extension-subscript"
 import "./NoteEditor.scss"
-import { useEffect } from "react"
+import { memo, useEffect } from "react"
 
 const NoteEditor = ({
-  selectedNoteID,
-  notes,
-  changeNote,
+  noteContent,
+  onContentChanged,
+  selectedNoteID
 }: {
+  noteContent: string | null
+  onContentChanged: (content: string) => void
   selectedNoteID: string | null
-  notes: Note[]
-  changeNote: (id: string, newNote: Partial<Note>) => void
 }) => {
-  if (!selectedNoteID) return null
-  const selectedNote = findObjectInArray(selectedNoteID, notes)
-  const noteContent = selectedNote ? selectedNote.contents : ""
-
-  const onEditorChange = (newValue: string) => {
-    const hasChanged = noteContent !== newValue
-    if (hasChanged) {
-      changeNote(selectedNoteID, {
-        contents: newValue,
-        modified: new Date(),
-      })
-    }
-  }
+  // DEV NOTE
+  // Use this to demonstrate the editor re-rendering.
+  // console.log("Rendering editor!")
 
   const editor = useEditor({
     extensions: [
@@ -48,13 +38,20 @@ const NoteEditor = ({
     onUpdate: (props) => onEditorChange(props.editor.getHTML()),
   })
 
+  const onEditorChange = (newValue: string) => {
+    const hasChanged = noteContent !== newValue
+    if (hasChanged) {
+      onContentChanged(newValue)
+    }
+  }
+
   // Force new content into editor when selected note changes
   useEffect(() => {
     if (!editor) return
-    editor.commands.setContent(noteContent)
+    editor.commands.setContent(noteContent ?? "")
   }, [selectedNoteID])
 
-  if (selectedNote && noteContent !== null) {
+  if (noteContent !== null) {
     return (
       <RichTextEditor
         editor={editor}
@@ -116,4 +113,4 @@ const NoteEditor = ({
   }
 }
 
-export default NoteEditor
+export default memo(NoteEditor)
