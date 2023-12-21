@@ -32,6 +32,12 @@ This app was originally built using create-react-app. It now uses **Vite**, an i
 
 Ultra-popular front end framework, great for single state applications. I like Vue but chose **React** because it's more relevant to career and want to keep muscle memory going.
 
+## Typescript (programming language)
+
+Enhanced JavaScript which adds static typing. 
+
+No brainer ever since I switched to it. Transitioning from JS to TS has reduced the number of random type issues, especially about missing properties on objects, across both my personal and work projects.
+
 ## SCSS (styles)
 
 Styles written in SCSS in 2021 because it's super fast to do, it's embedded in my muscle memory. Would prefer to use Tailwind nowadays.
