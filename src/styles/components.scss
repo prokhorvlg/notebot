@@ -255,7 +255,7 @@ body {
           button {
             padding: 10px;
             font-size: 1.2rem;
-            border: 3px solid white;
+            border: 2px solid white;
             width: 100%;
             max-width: 200px;
             svg {
@@ -379,7 +379,7 @@ body {
           .note-title-box {
             margin-left: 5px;
             padding: 15px 8px 18px 23px;
-            border: 3px solid transparent;
+            border: 2px solid transparent;
             border-radius: 6px;
             transition: 0.1s ease-in-out;
             flex: 1;
@@ -438,7 +438,7 @@ body {
         button {
           padding: 10px;
           font-size: 1.2rem;
-          border: 3px solid white;
+          border: 2px solid white;
           width: 100%;
           margin-left: 20px;
           margin-right: 20px;
@@ -629,7 +629,7 @@ input.feature-input {
   border-radius: 10px;
   padding: 15px 0 15px 20px;
   background: transparent;
-  border: 3px solid white;
+  border: 2px solid white;
   color: white;
   font-family: $font-heading;
   font-weight:600;
@@ -638,7 +638,7 @@ input.feature-input {
   }
 }
 button.feature-return {
-  border: 3px solid white;
+  border: 2px solid white;
   border-radius: 6px;
   background: none;
   color: white;
